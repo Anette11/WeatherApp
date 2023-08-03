@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -15,8 +17,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,7 +88,16 @@ public class MainActivity extends AppCompatActivity {
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            showToast("lat: " + latitude + ", lon: " + longitude);
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            try {
+                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                if (addresses != null) {
+                    String cityName = addresses.get(0).getLocality();
+                    showToast(cityName);
+                }
+            } catch (IOException e) {
+                showToast("Exception in retrieving city name");
+            }
         } else {
             showToast("Location is not known");
         }

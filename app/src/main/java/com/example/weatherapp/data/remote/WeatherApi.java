@@ -5,7 +5,7 @@ import android.database.Observable;
 import retrofit2.Response;
 import retrofit2.http.GET;
 
-interface WeatherApi {
+public interface WeatherApi {
 
     static final String BASE_URL = "https://api.open-meteo.com/";
 

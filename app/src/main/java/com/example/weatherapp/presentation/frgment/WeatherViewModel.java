@@ -1,4 +1,4 @@
-package com.example.weatherapp.presentation;
+package com.example.weatherapp.presentation.frgment;
 
 import androidx.lifecycle.ViewModel;
 

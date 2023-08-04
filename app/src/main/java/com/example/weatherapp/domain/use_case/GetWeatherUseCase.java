@@ -2,7 +2,7 @@ package com.example.weatherapp.domain.use_case;
 
 import android.database.Observable;
 
-import com.example.weatherapp.data.remote.GetWeatherResponseDto;
+import com.example.weatherapp.data.remote.dto.GetWeatherResponseDto;
 import com.example.weatherapp.domain.repository.GetWeatherRepository;
 
 import javax.inject.Inject;

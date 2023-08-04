@@ -21,14 +21,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.presentation.utils.Coordinates;
-import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -37,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE_LOCATION_PERMISSIONS = 123;
     private MainActivityViewModel viewModel;
-
-    @Inject
-    LocationCoordinatesContainer locationCoordinatesContainer;
 
     @Override
     protected void onCreate(

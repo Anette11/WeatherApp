@@ -1,4 +1,4 @@
-package com.example.weatherapp.domain.di;
+package com.example.weatherapp.di;
 
 import com.example.weatherapp.domain.repository.GetWeatherRepository;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;

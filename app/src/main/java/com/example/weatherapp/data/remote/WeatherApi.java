@@ -12,7 +12,7 @@ public interface WeatherApi {
 
     @GET("v1/forecast?hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m")
     Single<GetWeatherResponseDto> getWeather(
-            @Query("latitude") Double latitude,
-            @Query("longitude") Double longitude
+            @Query("latitude") double latitude,
+            @Query("longitude") double longitude
     );
 }

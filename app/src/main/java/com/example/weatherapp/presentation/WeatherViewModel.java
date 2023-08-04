@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.domain.data.GetWeatherResponse;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import javax.inject.Inject;
 
@@ -18,16 +19,25 @@ import timber.log.Timber;
 public class WeatherViewModel extends ViewModel {
 
     private final GetWeatherUseCase getWeatherUseCase;
+    private final LocationCoordinatesContainer locationCoordinatesContainer;
 
     @Inject
-    public WeatherViewModel(GetWeatherUseCase getWeatherUseCase) {
+    public WeatherViewModel(
+            GetWeatherUseCase getWeatherUseCase,
+            LocationCoordinatesContainer locationCoordinatesContainer
+    ) {
         this.getWeatherUseCase = getWeatherUseCase;
+        this.locationCoordinatesContainer = locationCoordinatesContainer;
     }
 
-    private Double latitude = 0.0;
-    private Double longitude = 0.0;
+    public LocationCoordinatesContainer getLocationCoordinatesContainer() {
+        return locationCoordinatesContainer;
+    }
 
-    public void getWeather() {
+    public void getWeather(
+            double latitude,
+            double longitude
+    ) {
         getWeatherUseCase.execute(latitude, longitude)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new SingleObserver<GetWeatherResponse>() {

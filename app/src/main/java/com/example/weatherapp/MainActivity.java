@@ -19,11 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
+import com.example.weatherapp.presentation.utils.Coordinates;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -31,6 +35,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE_LOCATION_PERMISSIONS = 123;
+
+    @Inject
+    LocationCoordinatesContainer locationCoordinatesContainer;
 
     @Override
     protected void onCreate(
@@ -101,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null) {
                     String cityName = addresses.get(0).getLocality();
-                    showToast(cityName);
+                    locationCoordinatesContainer.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
                 showToast("Exception in retrieving city name");

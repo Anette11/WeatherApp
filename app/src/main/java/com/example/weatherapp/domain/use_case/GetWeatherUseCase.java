@@ -18,8 +18,8 @@ public class GetWeatherUseCase {
     }
 
     public Single<GetWeatherResponse> execute(
-            Double latitude,
-            Double longitude
+            double latitude,
+            double longitude
     ) {
         return repository.getWeather(latitude, longitude)
                 .flatMap(getWeatherResponseDto ->

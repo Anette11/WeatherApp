@@ -38,7 +38,14 @@ public class WeatherFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         WeatherViewModel viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
-        viewModel.getWeather();
+
+        viewModel.getLocationCoordinatesContainer()
+                .getCoordinates()
+                .observe(getViewLifecycleOwner(), coordinates -> {
+                    if (coordinates != null) {
+                        viewModel.getWeather(coordinates.getLatitude(), coordinates.getLongitude());
+                    }
+                });
     }
 
     @Override

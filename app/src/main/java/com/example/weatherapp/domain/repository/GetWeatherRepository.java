@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Single;
 public interface GetWeatherRepository {
 
     Single<GetWeatherResponseDto> getWeather(
-            Double latitude,
-            Double longitude
+            double latitude,
+            double longitude
     );
 }

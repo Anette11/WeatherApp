@@ -20,8 +20,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
-import com.example.weatherapp.utils.Coordinates;
-import com.example.weatherapp.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.presentation.utils.Coordinates;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import java.io.IOException;
 import java.util.ArrayList;

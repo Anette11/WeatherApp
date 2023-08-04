@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.domain.data.GetWeatherResponse;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
-import com.example.weatherapp.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import javax.inject.Inject;
 

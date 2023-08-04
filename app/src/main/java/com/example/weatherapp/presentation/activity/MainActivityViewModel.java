@@ -2,8 +2,8 @@ package com.example.weatherapp.presentation.activity;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.weatherapp.utils.Coordinates;
-import com.example.weatherapp.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.presentation.utils.Coordinates;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import javax.inject.Inject;
 

@@ -10,12 +10,15 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.example.weatherapp.databinding.ActivityMainBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
             Bundle savedInstanceState
     ) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         if (areLocationPermissionsGranted()) {
             getLocation();

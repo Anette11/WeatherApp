@@ -1,12 +1,13 @@
 package com.example.weatherapp.domain.repository;
 
-import android.database.Observable;
-
 import com.example.weatherapp.data.remote.dto.GetWeatherResponseDto;
 
-import retrofit2.Response;
+import io.reactivex.rxjava3.core.Single;
 
 public interface GetWeatherRepository {
 
-    Observable<Response<GetWeatherResponseDto>> getWeather();
+    Single<GetWeatherResponseDto> getWeather(
+            Double latitude,
+            Double longitude
+    );
 }

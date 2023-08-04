@@ -38,6 +38,7 @@ public class WeatherFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         WeatherViewModel viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+        viewModel.getWeather();
     }
 
     @Override

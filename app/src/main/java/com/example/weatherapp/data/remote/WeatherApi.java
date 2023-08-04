@@ -1,16 +1,18 @@
 package com.example.weatherapp.data.remote;
 
-import android.database.Observable;
-
 import com.example.weatherapp.data.remote.dto.GetWeatherResponseDto;
 
-import retrofit2.Response;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface WeatherApi {
 
     String BASE_URL = "https://api.open-meteo.com/";
 
     @GET("v1/forecast?hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m")
-    Observable<Response<GetWeatherResponseDto>> getWeather();
+    Single<GetWeatherResponseDto> getWeather(
+            @Query("latitude") Double latitude,
+            @Query("longitude") Double longitude
+    );
 }

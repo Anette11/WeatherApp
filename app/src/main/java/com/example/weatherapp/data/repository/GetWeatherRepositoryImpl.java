@@ -1,22 +1,27 @@
 package com.example.weatherapp.data.repository;
 
-import android.database.Observable;
-
+import com.example.weatherapp.data.remote.WeatherApi;
 import com.example.weatherapp.data.remote.dto.GetWeatherResponseDto;
 import com.example.weatherapp.domain.repository.GetWeatherRepository;
 
 import javax.inject.Inject;
 
-import retrofit2.Response;
+import io.reactivex.rxjava3.core.Single;
 
 public class GetWeatherRepositoryImpl implements GetWeatherRepository {
 
+    private final WeatherApi weatherApi;
+
     @Inject
-    public GetWeatherRepositoryImpl() {
+    public GetWeatherRepositoryImpl(WeatherApi weatherApi) {
+        this.weatherApi = weatherApi;
     }
 
     @Override
-    public Observable<Response<GetWeatherResponseDto>> getWeather() {
-        return null;
+    public Single<GetWeatherResponseDto> getWeather(
+            Double latitude,
+            Double longitude
+    ) {
+        return weatherApi.getWeather(latitude, longitude);
     }
 }

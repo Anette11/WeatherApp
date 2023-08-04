@@ -9,14 +9,14 @@ import com.example.weatherapp.domain.data.HourlyUnits;
 
 public class RemoteMappers {
 
-    static GetWeatherResponse fromGetWeatherResponseDtoToGetWeatherResponse(
+    public static GetWeatherResponse fromGetWeatherResponseDtoToGetWeatherResponse(
             GetWeatherResponseDto getWeatherResponseDto
     ) {
         return new GetWeatherResponse(
                 getWeatherResponseDto.getElevation(),
                 getWeatherResponseDto.getGenerationTimeMs(),
-                RemoteMappers.fromHourlyDtoToHourly(getWeatherResponseDto.getHourly()),
-                RemoteMappers.fromHourlyUnitsDtoToHourlyUnits(getWeatherResponseDto.getHourlyUnits()),
+                fromHourlyDtoToHourly(getWeatherResponseDto.getHourly()),
+                fromHourlyUnitsDtoToHourlyUnits(getWeatherResponseDto.getHourlyUnits()),
                 getWeatherResponseDto.getLatitude(),
                 getWeatherResponseDto.getLongitude(),
                 getWeatherResponseDto.getTimezone(),
@@ -25,7 +25,7 @@ public class RemoteMappers {
         );
     }
 
-    static Hourly fromHourlyDtoToHourly(
+    private static Hourly fromHourlyDtoToHourly(
             HourlyDto hourlyDto
     ) {
         return new Hourly(
@@ -37,7 +37,7 @@ public class RemoteMappers {
         );
     }
 
-    static HourlyUnits fromHourlyUnitsDtoToHourlyUnits(
+    private static HourlyUnits fromHourlyUnitsDtoToHourlyUnits(
             HourlyUnitsDto hourlyUnitsDto
     ) {
         return new HourlyUnits(

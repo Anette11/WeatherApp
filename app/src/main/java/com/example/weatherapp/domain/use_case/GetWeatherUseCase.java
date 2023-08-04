@@ -1,13 +1,12 @@
 package com.example.weatherapp.domain.use_case;
 
-import android.database.Observable;
-
-import com.example.weatherapp.data.remote.dto.GetWeatherResponseDto;
+import com.example.weatherapp.data.remote.RemoteMappers;
+import com.example.weatherapp.domain.data.GetWeatherResponse;
 import com.example.weatherapp.domain.repository.GetWeatherRepository;
 
 import javax.inject.Inject;
 
-import retrofit2.Response;
+import io.reactivex.rxjava3.core.Single;
 
 public class GetWeatherUseCase {
 
@@ -18,7 +17,12 @@ public class GetWeatherUseCase {
         this.repository = repository;
     }
 
-    public Observable<Response<GetWeatherResponseDto>> execute() {
-        return repository.getWeather();
+    public Single<GetWeatherResponse> execute(
+            Double latitude,
+            Double longitude
+    ) {
+        return repository.getWeather(latitude, longitude)
+                .flatMap(getWeatherResponseDto ->
+                        Single.just(RemoteMappers.fromGetWeatherResponseDtoToGetWeatherResponse(getWeatherResponseDto)));
     }
 }

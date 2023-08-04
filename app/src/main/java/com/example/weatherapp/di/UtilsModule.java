@@ -1,6 +1,6 @@
 package com.example.weatherapp.di;
 
-import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.utils.LocationCoordinatesContainer;
 
 import javax.inject.Singleton;
 

@@ -1,4 +1,4 @@
-package com.example.weatherapp.presentation.utils;
+package com.example.weatherapp.utils;
 
 public class Coordinates {
 

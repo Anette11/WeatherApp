@@ -1,7 +1,5 @@
 package com.example.weatherapp.presentation;
 
-import android.util.Log;
-
 import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.domain.data.GetWeatherResponse;
@@ -14,6 +12,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import timber.log.Timber;
 
 @HiltViewModel
 public class WeatherViewModel extends ViewModel {
@@ -34,17 +33,17 @@ public class WeatherViewModel extends ViewModel {
                 .subscribe(new SingleObserver<GetWeatherResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        Log.d("WeatherViewModel", "onSubscribe()");
+                        Timber.d("onSubscribe()");
                     }
 
                     @Override
                     public void onSuccess(@NonNull GetWeatherResponse getWeatherResponse) {
-                        Log.d("WeatherViewModel", "onSuccess()");
+                        Timber.d("onSuccess()");
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.d("WeatherViewModel", "onError()");
+                        Timber.d("onError()");
                     }
                 });
     }

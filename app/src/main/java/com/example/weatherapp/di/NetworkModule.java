@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 @InstallIn(SingletonComponent.class)
-public class WeatherModule {
+public class NetworkModule {
 
     @Provides
     @Named("baseUrl")

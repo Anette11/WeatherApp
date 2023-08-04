@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.presentation.utils.Coordinates;
@@ -35,6 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE_LOCATION_PERMISSIONS = 123;
+    private MainActivityViewModel viewModel;
 
     @Inject
     LocationCoordinatesContainer locationCoordinatesContainer;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         if (areLocationPermissionsGranted()) {
             getLocation();
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null) {
                     String cityName = addresses.get(0).getLocality();
-                    locationCoordinatesContainer.updateCoordinates(new Coordinates(latitude, longitude, cityName));
+                    viewModel.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
                 showToast("Exception in retrieving city name");

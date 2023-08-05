@@ -9,8 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
+import com.example.weatherapp.presentation.adapter.WeatherRecyclerViewAdapter;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -18,6 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding binding;
+
+    @Inject
+    WeatherRecyclerViewAdapter recyclerViewAdapter;
 
     @Nullable
     @Override
@@ -36,6 +43,7 @@ public class WeatherFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         super.onViewCreated(view, savedInstanceState);
+        setRecyclerView();
 
         WeatherViewModel viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
@@ -46,6 +54,12 @@ public class WeatherFragment extends Fragment {
                         viewModel.getWeather(coordinates.getLatitude(), coordinates.getLongitude());
                     }
                 });
+    }
+
+    private void setRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
+        binding.recyclerView.setAdapter(recyclerViewAdapter);
     }
 
     @Override

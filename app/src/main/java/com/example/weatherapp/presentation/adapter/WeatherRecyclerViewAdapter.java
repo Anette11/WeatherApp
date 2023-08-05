@@ -15,7 +15,13 @@ import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    @Inject
+    public WeatherRecyclerViewAdapter() {
+    }
 
     private final List<WeatherItem> weatherItems = new ArrayList<>();
 

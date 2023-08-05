@@ -11,8 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherRecyclerViewAdapter;
+import com.example.weatherapp.presentation.adapter.items.HourlyInfoItem;
+import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
+import com.example.weatherapp.presentation.adapter.items.WeatherItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -60,6 +67,13 @@ public class WeatherFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(recyclerViewAdapter);
+
+        List<WeatherItem> newWeatherItems = new ArrayList<>();
+        newWeatherItems.add(new MainInfoItem("City name", R.drawable.clear_day));
+        newWeatherItems.add(new HourlyInfoItem("12:00"));
+        newWeatherItems.add(new HourlyInfoItem("13:00"));
+        newWeatherItems.add(new HourlyInfoItem("14:00"));
+        recyclerViewAdapter.updateWeatherItems(newWeatherItems);
     }
 
     @Override

@@ -55,9 +55,13 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     ) {
         WeatherItem weatherItem = weatherItems.get(position);
         if (holder.getItemViewType() == ItemViewType.MAIN_INFO.getType()) {
-            ((MainInfoItemViewHolder) holder).binding.textViewCityName.setText("");
+            String cityName = ((MainInfoItem) weatherItem).getCityName();
+            int image = ((MainInfoItem) weatherItem).getImage();
+            ((MainInfoItemViewHolder) holder).binding.textViewCityName.setText(cityName);
+            ((MainInfoItemViewHolder) holder).binding.imageView.setBackgroundResource(image);
         } else if (holder.getItemViewType() == ItemViewType.HOURLY_INFO.getType()) {
-            ((HourlyInfoItemViewHolder) holder).binding.textView.setText("");
+            String time = ((HourlyInfoItem) weatherItem).getTime();
+            ((HourlyInfoItemViewHolder) holder).binding.textView.setText(time);
         } else {
             throw new IllegalArgumentException("ItemViewType is not known in method onBindViewHolder");
         }

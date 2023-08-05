@@ -75,8 +75,20 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             mainInfoItemViewHolder.binding.textViewHumidity.setText(humidity);
             mainInfoItemViewHolder.binding.textViewDescription.setText(description);
         } else if (holder.getItemViewType() == ItemViewType.HOURLY_INFO.getType()) {
-            String time = ((HourlyInfoItem) weatherItem).getTime();
-            ((HourlyInfoItemViewHolder) holder).binding.textView.setText(time);
+            HourlyInfoItem hourlyInfoItem = (HourlyInfoItem) weatherItem;
+            String time = hourlyInfoItem.getTime();
+            int image = hourlyInfoItem.getImage();
+            String temperature = hourlyInfoItem.getTemperature() + " ℃";
+            String windSpeed = hourlyInfoItem.getWindSpeed() + " km/h";
+            String humidity = hourlyInfoItem.getHumidity() + " %";
+            String description = hourlyInfoItem.getDescription();
+            HourlyInfoItemViewHolder hourlyInfoItemViewHolder = (HourlyInfoItemViewHolder) holder;
+            hourlyInfoItemViewHolder.binding.textViewTime.setText(time);
+            hourlyInfoItemViewHolder.binding.imageView.setBackgroundResource(image);
+            hourlyInfoItemViewHolder.binding.textViewTemperature.setText(temperature);
+            hourlyInfoItemViewHolder.binding.textViewWindspeed.setText(windSpeed);
+            hourlyInfoItemViewHolder.binding.textViewHumidity.setText(humidity);
+            hourlyInfoItemViewHolder.binding.textViewDescription.setText(description);
         } else if (holder.getItemViewType() == ItemViewType.TEXT.getType()) {
             String text = ((TextItem) weatherItem).getText();
             ((TextItemViewHolder) holder).binding.textView.setText(text);

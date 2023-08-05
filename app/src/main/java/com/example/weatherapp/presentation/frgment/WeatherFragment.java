@@ -81,11 +81,60 @@ public class WeatherFragment extends Fragment {
                         "Clear sky"
                 ));
         newWeatherItems.add(new TextItem("Today"));
-        newWeatherItems.add(new HourlyInfoItem("12:00"));
-        newWeatherItems.add(new HourlyInfoItem("13:00"));
-        newWeatherItems.add(new HourlyInfoItem("14:00"));
-        newWeatherItems.add(new HourlyInfoItem("15:00"));
-        newWeatherItems.add(new HourlyInfoItem("16:00"));
+        newWeatherItems.add(
+                new HourlyInfoItem(
+                        "12:00",
+                        R.drawable.day_sunny_icon,
+                        30.0,
+                        14.5,
+                        80,
+                        "Clear sky"
+                ));
+        newWeatherItems.add(
+                new HourlyInfoItem(
+                        "13:00",
+                        R.drawable.day_sunny_icon,
+                        30.0,
+                        14.5,
+                        80,
+                        "Clear sky"
+                ));
+        newWeatherItems.add(
+                new HourlyInfoItem(
+                        "14:00",
+                        R.drawable.day_sunny_icon,
+                        30.0,
+                        14.5,
+                        80,
+                        "Clear sky"
+                ));
+        newWeatherItems.add(
+                new HourlyInfoItem(
+                        "15:00",
+                        R.drawable.day_sunny_icon,
+                        30.0,
+                        14.5,
+                        80,
+                        "Clear sky"
+                ));
+        newWeatherItems.add(
+                new HourlyInfoItem(
+                        "16:00",
+                        R.drawable.day_sunny_icon,
+                        30.0,
+                        14.5,
+                        80,
+                        "Clear sky"
+                ));
+        newWeatherItems.add(
+                new HourlyInfoItem(
+                        "17:00",
+                        R.drawable.day_sunny_icon,
+                        30.0,
+                        14.5,
+                        80,
+                        "Clear sky"
+                ));
         recyclerViewAdapter.updateWeatherItems(newWeatherItems);
     }
 

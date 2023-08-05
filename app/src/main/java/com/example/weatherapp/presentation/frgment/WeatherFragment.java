@@ -69,7 +69,7 @@ public class WeatherFragment extends Fragment {
         binding.recyclerView.setAdapter(recyclerViewAdapter);
 
         List<WeatherItem> newWeatherItems = new ArrayList<>();
-        newWeatherItems.add(new MainInfoItem("City name", R.drawable.clear_day));
+        newWeatherItems.add(new MainInfoItem("City name", R.drawable.day_sunny_icon));
         newWeatherItems.add(new HourlyInfoItem("12:00"));
         newWeatherItems.add(new HourlyInfoItem("13:00"));
         newWeatherItems.add(new HourlyInfoItem("14:00"));

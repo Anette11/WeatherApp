@@ -32,8 +32,8 @@
 
             <ImageView
                 android:id="@+id/image_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="Weather image"
                 app:layout_constraintEnd_toEndOf="parent"

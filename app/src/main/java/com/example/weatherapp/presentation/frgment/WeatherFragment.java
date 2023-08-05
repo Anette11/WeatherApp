@@ -30,7 +30,7 @@ public class WeatherFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         binding = FragmentWeatherBinding.inflate(inflater, container, false);
-        weatherAdapter = new WeatherAdapter(requireActivity());
+        weatherAdapter = new WeatherAdapter();
         return binding.getRoot();
     }
 

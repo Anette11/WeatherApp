@@ -1,7 +1,5 @@
 package com.example.weatherapp.presentation.adapter;
 
-import android.app.Activity;
-
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter;
 
@@ -18,11 +16,11 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
         notifyItemRangeInserted(0, newWeatherItems.size());
     }
 
-    public WeatherAdapter(Activity activity) {
+    public WeatherAdapter() {
         delegatesManager
-                .addDelegate(new MainInfoAdapterDelegate(activity))
-                .addDelegate(new HourlyInfoAdapterDelegate(activity))
-                .addDelegate(new TextAdapterDelegate(activity));
+                .addDelegate(new MainInfoAdapterDelegate())
+                .addDelegate(new HourlyInfoAdapterDelegate())
+                .addDelegate(new TextAdapterDelegate());
         setItems(weatherItems);
     }
 }

@@ -11,16 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherRecyclerViewAdapter;
-import com.example.weatherapp.presentation.adapter.items.HourlyInfoItem;
-import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
-import com.example.weatherapp.presentation.adapter.items.TextItem;
-import com.example.weatherapp.presentation.adapter.items.WeatherItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -62,80 +54,18 @@ public class WeatherFragment extends Fragment {
                         viewModel.getWeather(coordinates.getLatitude(), coordinates.getLongitude());
                     }
                 });
+
+        viewModel.getWeatherItems().observe(getViewLifecycleOwner(), weatherItems -> {
+            if (weatherItems != null) {
+                recyclerViewAdapter.updateWeatherItems(weatherItems);
+            }
+        });
     }
 
     private void setRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(recyclerViewAdapter);
-
-        List<WeatherItem> newWeatherItems = new ArrayList<>();
-        newWeatherItems.add(new TextItem("Now"));
-        newWeatherItems.add(
-                new MainInfoItem(
-                        "City name",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        newWeatherItems.add(new TextItem("Today"));
-        newWeatherItems.add(
-                new HourlyInfoItem(
-                        "12:00",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        newWeatherItems.add(
-                new HourlyInfoItem(
-                        "13:00",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        newWeatherItems.add(
-                new HourlyInfoItem(
-                        "14:00",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        newWeatherItems.add(
-                new HourlyInfoItem(
-                        "15:00",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        newWeatherItems.add(
-                new HourlyInfoItem(
-                        "16:00",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        newWeatherItems.add(
-                new HourlyInfoItem(
-                        "17:00",
-                        R.drawable.day_sunny_icon,
-                        30.0,
-                        14.5,
-                        80,
-                        "Clear sky"
-                ));
-        recyclerViewAdapter.updateWeatherItems(newWeatherItems);
     }
 
     @Override

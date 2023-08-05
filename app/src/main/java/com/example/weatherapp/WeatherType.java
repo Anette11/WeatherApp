@@ -159,4 +159,13 @@ public enum WeatherType {
         this.icon = icon;
         this.code = code;
     }
+
+    public static WeatherType findWeatherTypeByCode(int code) {
+        for (WeatherType weatherType : values()) {
+            if (weatherType.code == code) {
+                return weatherType;
+            }
+        }
+        return null;
+    }
 }

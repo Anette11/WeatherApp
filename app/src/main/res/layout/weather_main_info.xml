@@ -33,10 +33,9 @@
             <ImageView
                 android:id="@+id/image_view"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:contentDescription="Weather image"
-                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_city_name"

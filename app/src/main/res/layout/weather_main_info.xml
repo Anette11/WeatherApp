@@ -73,7 +73,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/image_view_windspeed"
+                    android:id="@+id/image_view_wind_speed"
                     android:layout_width="0dp"
                     android:layout_height="24dp"
                     android:src="@drawable/wind_icon"
@@ -110,13 +110,13 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/text_view_windspeed"
+                    app:layout_constraintEnd_toStartOf="@+id/text_view_wind_speed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="30 \u2103" />
 
                 <TextView
-                    android:id="@+id/text_view_windspeed"
+                    android:id="@+id/text_view_wind_speed"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -137,7 +137,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/text_view_windspeed"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_wind_speed"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="86 %" />
 

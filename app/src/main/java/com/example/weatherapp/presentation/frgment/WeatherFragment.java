@@ -12,9 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
-import com.example.weatherapp.presentation.adapter.WeatherRecyclerViewAdapter;
-
-import javax.inject.Inject;
+import com.example.weatherapp.presentation.adapter.WeatherAdapter;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -22,9 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding binding;
-
-    @Inject
-    WeatherRecyclerViewAdapter recyclerViewAdapter;
+    private WeatherAdapter weatherAdapter;
 
     @Nullable
     @Override
@@ -34,6 +30,7 @@ public class WeatherFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         binding = FragmentWeatherBinding.inflate(inflater, container, false);
+        weatherAdapter = new WeatherAdapter(requireActivity());
         return binding.getRoot();
     }
 
@@ -57,7 +54,7 @@ public class WeatherFragment extends Fragment {
 
         viewModel.getWeatherItems().observe(getViewLifecycleOwner(), weatherItems -> {
             if (weatherItems != null) {
-                recyclerViewAdapter.updateWeatherItems(weatherItems);
+                weatherAdapter.updateWeatherItems(weatherItems);
             }
         });
     }
@@ -65,7 +62,7 @@ public class WeatherFragment extends Fragment {
     private void setRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         binding.recyclerView.setLayoutManager(linearLayoutManager);
-        binding.recyclerView.setAdapter(recyclerViewAdapter);
+        binding.recyclerView.setAdapter(weatherAdapter);
     }
 
     @Override

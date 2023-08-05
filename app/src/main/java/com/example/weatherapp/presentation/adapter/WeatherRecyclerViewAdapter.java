@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.databinding.WeatherHourlyInfoBinding;
 import com.example.weatherapp.databinding.WeatherMainInfoBinding;
+import com.example.weatherapp.databinding.WeatherTextBinding;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoItem;
 import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
+import com.example.weatherapp.presentation.adapter.items.TextItem;
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 
 import java.util.ArrayList;
@@ -43,6 +45,9 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         } else if (viewType == ItemViewType.HOURLY_INFO.getType()) {
             WeatherHourlyInfoBinding binding = WeatherHourlyInfoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new HourlyInfoItemViewHolder(binding);
+        } else if (viewType == ItemViewType.TEXT.getType()) {
+            WeatherTextBinding binding = WeatherTextBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new TextItemViewHolder(binding);
         } else {
             throw new IllegalArgumentException("ItemViewType is not known in method onCreateViewHolder");
         }
@@ -72,6 +77,9 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         } else if (holder.getItemViewType() == ItemViewType.HOURLY_INFO.getType()) {
             String time = ((HourlyInfoItem) weatherItem).getTime();
             ((HourlyInfoItemViewHolder) holder).binding.textView.setText(time);
+        } else if (holder.getItemViewType() == ItemViewType.TEXT.getType()) {
+            String text = ((TextItem) weatherItem).getText();
+            ((TextItemViewHolder) holder).binding.textView.setText(text);
         } else {
             throw new IllegalArgumentException("ItemViewType is not known in method onBindViewHolder");
         }
@@ -89,6 +97,8 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             return ItemViewType.MAIN_INFO.getType();
         } else if (weatherItem instanceof HourlyInfoItem) {
             return ItemViewType.HOURLY_INFO.getType();
+        } else if (weatherItem instanceof TextItem) {
+            return ItemViewType.TEXT.getType();
         } else {
             throw new IllegalArgumentException("ItemViewType is not known in method getItemViewType");
         }
@@ -108,6 +118,15 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         private final WeatherHourlyInfoBinding binding;
 
         public HourlyInfoItemViewHolder(WeatherHourlyInfoBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+
+    private static class TextItemViewHolder extends RecyclerView.ViewHolder {
+        private final WeatherTextBinding binding;
+
+        public TextItemViewHolder(WeatherTextBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

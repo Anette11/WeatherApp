@@ -16,6 +16,7 @@ import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherRecyclerViewAdapter;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoItem;
 import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
+import com.example.weatherapp.presentation.adapter.items.TextItem;
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class WeatherFragment extends Fragment {
         binding.recyclerView.setAdapter(recyclerViewAdapter);
 
         List<WeatherItem> newWeatherItems = new ArrayList<>();
+        newWeatherItems.add(new TextItem("Now"));
         newWeatherItems.add(
                 new MainInfoItem(
                         "City name",
@@ -78,6 +80,7 @@ public class WeatherFragment extends Fragment {
                         80,
                         "Clear sky"
                 ));
+        newWeatherItems.add(new TextItem("Today"));
         newWeatherItems.add(new HourlyInfoItem("12:00"));
         newWeatherItems.add(new HourlyInfoItem("13:00"));
         newWeatherItems.add(new HourlyInfoItem("14:00"));

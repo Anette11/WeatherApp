@@ -16,15 +16,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/text_view_city_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -32,14 +32,117 @@
 
             <ImageView
                 android:id="@+id/image_view"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="Weather image"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_city_name"
-                tools:src="@mipmap/ic_launcher" />
+                tools:src="@drawable/cloud_lightning_icon" />
+
+            <TextView
+                android:id="@+id/text_view_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view"
+                tools:text="Clear sky" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_icons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_description">
+
+                <ImageView
+                    android:id="@+id/image_view_temperature"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/temperature_heat_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/image_view_windspeed"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/wind_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/image_view_humidity"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_temperature"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/image_view_humidity"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/drop_humidity_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_texts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraint_layout_icons">
+
+                <TextView
+                    android:id="@+id/text_view_temperature"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/text_view_windspeed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="30 \u2103" />
+
+                <TextView
+                    android:id="@+id/text_view_windspeed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/text_view_humidity"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_temperature"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="17.6 km/h" />
+
+                <TextView
+                    android:id="@+id/text_view_humidity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_windspeed"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="86 %" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

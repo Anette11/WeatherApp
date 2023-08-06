@@ -62,11 +62,7 @@ public class WeatherFragment extends Fragment {
         });
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if (isLoading) {
-                binding.progressBar.setVisibility(View.VISIBLE);
-            } else {
-                binding.progressBar.setVisibility(View.GONE);
-            }
+            binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
     }
 

@@ -56,9 +56,7 @@ public class WeatherFragment extends Fragment {
                 });
 
         viewModel.getWeatherItems().observe(getViewLifecycleOwner(), weatherItems -> {
-            if (weatherItems != null) {
-                weatherAdapter.updateWeatherItems(weatherItems);
-            }
+            if (weatherItems != null) weatherAdapter.updateWeatherItems(weatherItems);
         });
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {

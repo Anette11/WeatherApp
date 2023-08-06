@@ -106,12 +106,7 @@ public class WeatherViewModel extends ViewModel {
             GetWeatherResponse getWeatherResponse
     ) {
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
-        String cityName;
-        if (coordinates != null) {
-            cityName = coordinates.getCityName();
-        } else {
-            cityName = resourcesProvider.getString(R.string.not_applicable);
-        }
+        String cityName = coordinates != null ? coordinates.getCityName() : resourcesProvider.getString(R.string.not_applicable);
         Hourly hourly = getWeatherResponse.getHourly();
         List<String> time = hourly.getTime();
         List<Integer> weatherCode = hourly.getWeatherCode();
@@ -136,11 +131,7 @@ public class WeatherViewModel extends ViewModel {
             if (counter == 1) {
                 boolean isDateToday = dateFormatter.checkIfDateIsToday(time.get(i));
                 String dateStr = time.get(i);
-                if (isDateToday) {
-                    dateStr = resourcesProvider.getString(R.string.today);
-                } else {
-                    dateStr = dateFormatter.convertDateFormatInLongText(dateStr);
-                }
+                dateStr = isDateToday ? resourcesProvider.getString(R.string.today) : dateFormatter.convertDateFormatInLongText(dateStr);
                 newWeatherItems.add(new TextItem(dateStr));
             }
             WeatherType weatherType = WeatherType.findWeatherTypeByCode(weatherCode.get(i));

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.presentation.utils.Coordinates;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             if (areLocationPermissionsGranted()) {
                 getLocation();
             } else {
-                showToast("Location permissions are not granted");
+                showToast(getString(R.string.location_permissions_are_not_granted));
             }
         }
     }
@@ -109,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
                     viewModel.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
-                showToast("Exception in retrieving city name");
+                showToast(getString(R.string.exception_in_retrieving_city_name));
             }
         } else {
-            showToast("Location is not known");
+            showToast(getString(R.string.location_is_not_known));
         }
     }
 

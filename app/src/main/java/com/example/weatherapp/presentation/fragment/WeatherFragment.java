@@ -14,13 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherAdapter;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding binding;
-    private WeatherAdapter weatherAdapter;
+
+    @Inject
+    WeatherAdapter weatherAdapter;
 
     @Nullable
     @Override
@@ -30,7 +34,6 @@ public class WeatherFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         binding = FragmentWeatherBinding.inflate(inflater, container, false);
-        weatherAdapter = new WeatherAdapter();
         return binding.getRoot();
     }
 

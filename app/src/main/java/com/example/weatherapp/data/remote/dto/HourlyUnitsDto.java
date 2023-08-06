@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class HourlyUnitsDto {
     @SerializedName("relativehumidity_2m")
-    String relativeHumidity2m;
+    private final String relativeHumidity2m;
     @SerializedName("temperature_2m")
-    String temperature2m;
-    String time;
+    private final String temperature2m;
+    private final String time;
     @SerializedName("weathercode")
-    String weatherCode;
+    private final String weatherCode;
     @SerializedName("windspeed_10m")
-    String windSpeed10m;
+    private final String windSpeed10m;
 
     public HourlyUnitsDto(
             String relativeHumidity2m,
@@ -31,39 +31,19 @@ public class HourlyUnitsDto {
         return relativeHumidity2m;
     }
 
-    public void setRelativeHumidity2m(String relativeHumidity2m) {
-        this.relativeHumidity2m = relativeHumidity2m;
-    }
-
     public String getTemperature2m() {
         return temperature2m;
-    }
-
-    public void setTemperature2m(String temperature2m) {
-        this.temperature2m = temperature2m;
     }
 
     public String getTime() {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getWeatherCode() {
         return weatherCode;
     }
 
-    public void setWeatherCode(String weatherCode) {
-        this.weatherCode = weatherCode;
-    }
-
     public String getWindSpeed10m() {
         return windSpeed10m;
-    }
-
-    public void setWindSpeed10m(String windSpeed10m) {
-        this.windSpeed10m = windSpeed10m;
     }
 }

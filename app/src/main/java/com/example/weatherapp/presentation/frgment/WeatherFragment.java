@@ -57,6 +57,14 @@ public class WeatherFragment extends Fragment {
                 weatherAdapter.updateWeatherItems(weatherItems);
             }
         });
+
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                binding.progressBar.setVisibility(View.VISIBLE);
+            } else {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setRecyclerView() {

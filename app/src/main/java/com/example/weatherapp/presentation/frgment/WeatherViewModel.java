@@ -36,9 +36,14 @@ public class WeatherViewModel extends ViewModel {
     private final DateFormatter dateFormatter;
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
     public LiveData<List<WeatherItem>> getWeatherItems() {
         return weatherItems;
+    }
+
+    public LiveData<Boolean> getIsLoading() {
+        return isLoading;
     }
 
     @Inject
@@ -65,17 +70,18 @@ public class WeatherViewModel extends ViewModel {
                 .subscribe(new SingleObserver<GetWeatherResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        Timber.d("onSubscribe()");
+                        isLoading.postValue(true);
                     }
 
                     @Override
                     public void onSuccess(@NonNull GetWeatherResponse getWeatherResponse) {
                         createWeatherItems(getWeatherResponse);
+                        isLoading.postValue(false);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Timber.d("onError()");
+                        isLoading.postValue(false);
                     }
                 });
     }

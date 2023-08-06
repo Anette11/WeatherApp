@@ -3,19 +3,19 @@ package com.example.weatherapp.data.remote.dto;
 import com.google.gson.annotations.SerializedName;
 
 public class GetWeatherResponseDto {
-    private int elevation;
+    private final int elevation;
     @SerializedName("generationtime_ms")
-    private double generationTimeMs;
-    private HourlyDto hourly;
+    private final double generationTimeMs;
+    private final HourlyDto hourly;
     @SerializedName("hourly_units")
-    private HourlyUnitsDto hourlyUnits;
-    private double latitude;
-    private double longitude;
-    private String timezone;
+    private final HourlyUnitsDto hourlyUnits;
+    private final double latitude;
+    private final double longitude;
+    private final String timezone;
     @SerializedName("timezone_abbreviation")
-    private String timezoneAbbreviation;
+    private final String timezoneAbbreviation;
     @SerializedName("utc_offset_seconds")
-    private int utcOffsetSeconds;
+    private final int utcOffsetSeconds;
 
     public GetWeatherResponseDto(
             int elevation,
@@ -43,71 +43,35 @@ public class GetWeatherResponseDto {
         return elevation;
     }
 
-    public void setElevation(int elevation) {
-        this.elevation = elevation;
-    }
-
     public double getGenerationTimeMs() {
         return generationTimeMs;
-    }
-
-    public void setGenerationTimeMs(double generationTimeMs) {
-        this.generationTimeMs = generationTimeMs;
     }
 
     public HourlyDto getHourly() {
         return hourly;
     }
 
-    public void setHourly(HourlyDto hourly) {
-        this.hourly = hourly;
-    }
-
     public HourlyUnitsDto getHourlyUnits() {
         return hourlyUnits;
-    }
-
-    public void setHourlyUnits(HourlyUnitsDto hourlyUnits) {
-        this.hourlyUnits = hourlyUnits;
     }
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
     }
 
     public String getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
-    }
-
     public String getTimezoneAbbreviation() {
         return timezoneAbbreviation;
     }
 
-    public void setTimezoneAbbreviation(String timezoneAbbreviation) {
-        this.timezoneAbbreviation = timezoneAbbreviation;
-    }
-
     public int getUtcOffsetSeconds() {
         return utcOffsetSeconds;
-    }
-
-    public void setUtcOffsetSeconds(int utcOffsetSeconds) {
-        this.utcOffsetSeconds = utcOffsetSeconds;
     }
 }

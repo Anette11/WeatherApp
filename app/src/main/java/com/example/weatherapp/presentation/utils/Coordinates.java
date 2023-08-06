@@ -2,9 +2,9 @@ package com.example.weatherapp.presentation.utils;
 
 public class Coordinates {
 
-    private double latitude;
-    private double longitude;
-    private String cityName;
+    private final double latitude;
+    private final double longitude;
+    private final String cityName;
 
     public Coordinates(
             double latitude,
@@ -20,23 +20,11 @@ public class Coordinates {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     public String getCityName() {
         return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
     }
 }

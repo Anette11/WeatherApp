@@ -110,9 +110,9 @@ public class WeatherViewModel extends ViewModel {
         Hourly hourly = getWeatherResponse.getHourly();
         List<String> time = hourly.getTime();
         List<Integer> weatherCode = hourly.getWeatherCode();
-        List<Double> temperature = hourly.getTemperature2m();
-        List<Double> windSpeed = hourly.getWindSpeed10m();
-        List<Integer> humidity = hourly.getRelativeHumidity2m();
+        List<Double> temperature = hourly.getTemperature();
+        List<Double> windSpeed = hourly.getWindSpeed();
+        List<Integer> humidity = hourly.getHumidity();
         int numberOfValuesPerDay = 24;
         if (time.size() % numberOfValuesPerDay != 0 ||
                 time.size() != weatherCode.size() ||

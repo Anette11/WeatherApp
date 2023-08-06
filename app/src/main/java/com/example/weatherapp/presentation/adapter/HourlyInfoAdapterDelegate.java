@@ -44,9 +44,9 @@ public class HourlyInfoAdapterDelegate extends AbsListItemAdapterDelegate<Hourly
             @NonNull List<Object> payloads
     ) {
         holder.binding.textViewTime.setText(item.getTime());
-        holder.binding.textViewTemperature.setText(item.getTemperature() + " ℃");
-        holder.binding.textViewWindSpeed.setText(item.getWindSpeed() + " km/h");
-        holder.binding.textViewHumidity.setText(item.getHumidity() + " %");
+        holder.binding.textViewTemperature.setText(item.getTemperature());
+        holder.binding.textViewWindSpeed.setText(item.getWindSpeed());
+        holder.binding.textViewHumidity.setText(item.getHumidity());
         holder.binding.textViewDescription.setText(item.getDescription());
         holder.binding.imageView.setBackgroundResource(item.getImage());
     }

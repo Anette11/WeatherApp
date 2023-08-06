@@ -7,17 +7,17 @@ public class HourlyInfoItem implements WeatherItem {
     private final String time;
     @DrawableRes
     private final int image;
-    private final Double temperature;
-    private final Double windSpeed;
-    private final Integer humidity;
+    private final String temperature;
+    private final String windSpeed;
+    private final String humidity;
     private final String description;
 
     public HourlyInfoItem(
             String time,
             int image,
-            Double temperature,
-            Double windSpeed,
-            Integer humidity,
+            String temperature,
+            String windSpeed,
+            String humidity,
             String description
     ) {
         this.time = time;
@@ -36,15 +36,15 @@ public class HourlyInfoItem implements WeatherItem {
         return image;
     }
 
-    public Double getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
-    public Double getWindSpeed() {
+    public String getWindSpeed() {
         return windSpeed;
     }
 
-    public Integer getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 

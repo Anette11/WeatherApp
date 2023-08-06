@@ -44,9 +44,9 @@ public class MainInfoAdapterDelegate extends AbsListItemAdapterDelegate<MainInfo
             @NonNull List<Object> payloads
     ) {
         holder.binding.textViewCityName.setText(item.getCityName());
-        holder.binding.textViewTemperature.setText(item.getTemperature() + " ℃");
-        holder.binding.textViewWindSpeed.setText(item.getWindSpeed() + " km/h");
-        holder.binding.textViewHumidity.setText(item.getHumidity() + " %");
+        holder.binding.textViewTemperature.setText(item.getTemperature());
+        holder.binding.textViewWindSpeed.setText(item.getWindSpeed());
+        holder.binding.textViewHumidity.setText(item.getHumidity());
         holder.binding.textViewDescription.setText(item.getDescription());
         holder.binding.textViewTime.setText(item.getTime());
         holder.binding.imageView.setBackgroundResource(item.getImage());

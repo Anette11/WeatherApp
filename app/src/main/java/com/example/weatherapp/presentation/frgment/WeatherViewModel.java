@@ -16,6 +16,7 @@ import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.example.weatherapp.presentation.utils.Coordinates;
 import com.example.weatherapp.presentation.utils.DateFormatter;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.presentation.utils.StringFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class WeatherViewModel extends ViewModel {
 
     private final GetWeatherUseCase getWeatherUseCase;
     private final DateFormatter dateFormatter;
+    private final StringFormatter stringFormatter;
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -53,10 +55,12 @@ public class WeatherViewModel extends ViewModel {
     public WeatherViewModel(
             GetWeatherUseCase getWeatherUseCase,
             DateFormatter dateFormatter,
+            StringFormatter stringFormatter,
             LocationCoordinatesContainer locationCoordinatesContainer
     ) {
         this.getWeatherUseCase = getWeatherUseCase;
         this.dateFormatter = dateFormatter;
+        this.stringFormatter = stringFormatter;
         this.locationCoordinatesContainer = locationCoordinatesContainer;
     }
 
@@ -143,9 +147,9 @@ public class WeatherViewModel extends ViewModel {
                                         "HH:mm"
                                 ),
                                 weatherType.icon,
-                                temperature.get(i),
-                                windSpeed.get(i),
-                                humidity.get(i),
+                                stringFormatter.formatToTemperature(temperature.get(i)),
+                                stringFormatter.formatToWindSpeed(windSpeed.get(i)),
+                                stringFormatter.formatToHumidity(humidity.get(i)),
                                 weatherType.description
                         ));
                 boolean isDateIsClosestToNow = dateFormatter.isDateIsClosestToNow(time.get(i));
@@ -156,9 +160,9 @@ public class WeatherViewModel extends ViewModel {
                             new MainInfoItem(
                                     cityName,
                                     weatherType.icon,
-                                    temperature.get(i),
-                                    windSpeed.get(i),
-                                    humidity.get(i),
+                                    stringFormatter.formatToTemperature(temperature.get(i)),
+                                    stringFormatter.formatToWindSpeed(windSpeed.get(i)),
+                                    stringFormatter.formatToHumidity(humidity.get(i)),
                                     weatherType.description,
                                     dateFormatter.convertDateFormat(
                                             time.get(i),

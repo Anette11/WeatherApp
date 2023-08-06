@@ -20,16 +20,28 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/text_view_city_name"
-                android:layout_width="0dp"
+                android:id="@+id/text_view_time"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="City name" />
+
+            <TextView
+                android:id="@+id/text_view_city_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/text_view_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="12:00" />
 
             <ImageView
                 android:id="@+id/image_view"

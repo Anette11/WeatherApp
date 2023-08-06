@@ -152,7 +152,12 @@ public class WeatherViewModel extends ViewModel {
                                     temperature.get(i),
                                     windSpeed.get(i),
                                     humidity.get(i),
-                                    weatherType.description)
+                                    weatherType.description,
+                                    dateFormatter.convertDateFormat(
+                                            time.get(i),
+                                            "HH:mm"
+                                    )
+                            )
                     );
                     newWeatherItems.addAll(0, mainInfoNow);
                 }

@@ -11,6 +11,7 @@ public class MainInfoItem implements WeatherItem {
     private final Double windSpeed;
     private final Integer humidity;
     private final String description;
+    private final String time;
 
     public MainInfoItem(
             String cityName,
@@ -18,7 +19,8 @@ public class MainInfoItem implements WeatherItem {
             Double temperature,
             Double windSpeed,
             Integer humidity,
-            String description
+            String description,
+            String time
     ) {
         this.cityName = cityName;
         this.image = image;
@@ -26,6 +28,7 @@ public class MainInfoItem implements WeatherItem {
         this.windSpeed = windSpeed;
         this.humidity = humidity;
         this.description = description;
+        this.time = time;
     }
 
     public String getCityName() {
@@ -50,5 +53,9 @@ public class MainInfoItem implements WeatherItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getTime() {
+        return time;
     }
 }

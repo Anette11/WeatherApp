@@ -22,6 +22,7 @@ public class DateFormatter {
         SimpleDateFormat simpleDateFormatTo = new SimpleDateFormat(patternTo, Locale.getDefault());
         try {
             Date date = simpleDateFormatDefault.parse(dateStr);
+            if (date == null) return null;
             return simpleDateFormatTo.format(date);
         } catch (ParseException e) {
             Timber.d("Exception in parse date");
@@ -33,6 +34,7 @@ public class DateFormatter {
     public boolean checkIfDateIsToday(String dateStr) {
         try {
             Date dateToCheck = simpleDateFormatDefault.parse(dateStr);
+            if (dateToCheck == null) return false;
             return DateUtils.isToday(dateToCheck.getTime());
         } catch (ParseException e) {
             Timber.d("Exception in parse date");
@@ -45,6 +47,7 @@ public class DateFormatter {
         Date dateToday = new Date();
         try {
             Date dateToCheck = simpleDateFormatDefault.parse(dateStr);
+            if (dateToCheck == null) return false;
             return checkIfDateIsToday(dateStr) && dateToday.getHours() == dateToCheck.getHours();
         } catch (ParseException e) {
             Timber.d("Exception in parse date");

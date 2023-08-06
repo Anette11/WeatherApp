@@ -3,7 +3,6 @@ package com.example.weatherapp.di;
 import com.example.weatherapp.BuildConfig;
 import com.example.weatherapp.data.remote.WeatherApi;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,19 +20,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
     @Provides
-    @Named("baseUrl")
-    String provideBaseUrl() {
-        return WeatherApi.BASE_URL;
-    }
-
-    @Provides
     @Singleton
     WeatherApi provideWeatherApi(
-            @Named("baseUrl") String baseUrl,
             OkHttpClient okHttpClient
     ) {
         return new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(BuildConfig.BASE_URL)
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
@@ -42,8 +34,7 @@ public class NetworkModule {
     }
 
     @Provides
-    HttpLoggingInterceptor provideHttpLoggingInterceptor(
-    ) {
+    HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

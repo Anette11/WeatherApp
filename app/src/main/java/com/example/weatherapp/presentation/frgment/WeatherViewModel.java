@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
@@ -38,6 +39,7 @@ public class WeatherViewModel extends ViewModel {
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isWeatherInfoFetched = new MutableLiveData<>(false);
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public LiveData<List<WeatherItem>> getWeatherItems() {
         return weatherItems;
@@ -73,6 +75,7 @@ public class WeatherViewModel extends ViewModel {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
                             isLoading.postValue(true);
+                            compositeDisposable.add(d);
                         }
 
                         @Override
@@ -173,5 +176,11 @@ public class WeatherViewModel extends ViewModel {
             }
         }
         weatherItems.postValue(newWeatherItems);
+    }
+
+    @Override
+    protected void onCleared() {
+        compositeDisposable.dispose();
+        super.onCleared();
     }
 }

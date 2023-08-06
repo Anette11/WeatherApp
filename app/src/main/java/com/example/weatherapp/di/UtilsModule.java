@@ -1,5 +1,6 @@
 package com.example.weatherapp.di;
 
+import com.example.weatherapp.presentation.utils.DateFormatter;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import javax.inject.Singleton;
@@ -17,5 +18,10 @@ public class UtilsModule {
     @Singleton
     LocationCoordinatesContainer provideLocationCoordinatesContainer() {
         return new LocationCoordinatesContainer();
+    }
+
+    @Provides
+    DateFormatter provideDateFormatter() {
+        return new DateFormatter();
     }
 }

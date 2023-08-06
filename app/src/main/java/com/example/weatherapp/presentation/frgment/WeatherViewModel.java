@@ -14,6 +14,7 @@ import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
 import com.example.weatherapp.presentation.adapter.items.TextItem;
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.example.weatherapp.presentation.utils.Coordinates;
+import com.example.weatherapp.presentation.utils.DateFormatter;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import timber.log.Timber;
 public class WeatherViewModel extends ViewModel {
 
     private final GetWeatherUseCase getWeatherUseCase;
+    private final DateFormatter dateFormatter;
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
 
@@ -42,9 +44,11 @@ public class WeatherViewModel extends ViewModel {
     @Inject
     public WeatherViewModel(
             GetWeatherUseCase getWeatherUseCase,
+            DateFormatter dateFormatter,
             LocationCoordinatesContainer locationCoordinatesContainer
     ) {
         this.getWeatherUseCase = getWeatherUseCase;
+        this.dateFormatter = dateFormatter;
         this.locationCoordinatesContainer = locationCoordinatesContainer;
     }
 
@@ -76,7 +80,9 @@ public class WeatherViewModel extends ViewModel {
                 });
     }
 
-    private void createWeatherItems(GetWeatherResponse getWeatherResponse) {
+    private void createWeatherItems(
+            GetWeatherResponse getWeatherResponse
+    ) {
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         String cityName;
         if (coordinates != null) {
@@ -90,7 +96,8 @@ public class WeatherViewModel extends ViewModel {
         List<Double> temperature = hourly.getTemperature2m();
         List<Double> windSpeed = hourly.getWindSpeed10m();
         List<Integer> humidity = hourly.getRelativeHumidity2m();
-        if (time.size() == 0 ||
+        int numberOfValuesPerDay = 24;
+        if (time.size() % numberOfValuesPerDay != 0 ||
                 time.size() != weatherCode.size() ||
                 time.size() != temperature.size() ||
                 time.size() != windSpeed.size() ||
@@ -100,34 +107,54 @@ public class WeatherViewModel extends ViewModel {
             return;
         }
         List<WeatherItem> newWeatherItems = new ArrayList<>();
+        List<WeatherItem> itemList = new ArrayList<>();
+        int counter = 0;
         for (int i = 0; i < time.size(); i++) {
+            counter++;
+            if (counter == 1) {
+                boolean isDateToday = dateFormatter.checkIfDateIsToday(time.get(i));
+                String dateStr = time.get(i);
+                if (isDateToday) {
+                    dateStr = "Today";
+                } else {
+                    dateStr = dateFormatter.convertDateFormat(dateStr, "dd MMMM yyyy");
+                }
+                newWeatherItems.add(new TextItem(dateStr));
+            }
             WeatherType weatherType = WeatherType.findWeatherTypeByCode(weatherCode.get(i));
             if (weatherType != null) {
-                if (i == 0) {
-                    newWeatherItems.add(new TextItem("Now"));
-                    newWeatherItems.add(
+                itemList.add(
+                        new HourlyInfoItem(
+                                dateFormatter.convertDateFormat(
+                                        time.get(i),
+                                        "HH:mm"
+                                ),
+                                weatherType.icon,
+                                temperature.get(i),
+                                windSpeed.get(i),
+                                humidity.get(i),
+                                weatherType.description
+                        ));
+                boolean isDateIsClosestToNow = dateFormatter.isDateIsClosestToNow(time.get(i));
+                if (isDateIsClosestToNow) {
+                    List<WeatherItem> mainInfoNow = new ArrayList<>();
+                    mainInfoNow.add(new TextItem("Now"));
+                    mainInfoNow.add(
                             new MainInfoItem(
                                     cityName,
                                     weatherType.icon,
                                     temperature.get(i),
                                     windSpeed.get(i),
                                     humidity.get(i),
-                                    weatherType.description
-                            ));
+                                    weatherType.description)
+                    );
+                    newWeatherItems.addAll(0, mainInfoNow);
                 }
-                newWeatherItems.add(new TextItem("Today"));
-                List<WeatherItem> weatherItemList = new ArrayList<>();
-                for (int j = 0; j < 10; j++) {
-                    weatherItemList.add(new HourlyInfoItem(
-                            time.get(i),
-                            weatherType.icon,
-                            temperature.get(i),
-                            windSpeed.get(i),
-                            humidity.get(i),
-                            weatherType.description
-                    ));
-                }
-                newWeatherItems.add(new HourlyInfoEveryDayItem(weatherItemList));
+            }
+            if (counter == numberOfValuesPerDay) {
+                newWeatherItems.add(new HourlyInfoEveryDayItem(new ArrayList<>(itemList)));
+                counter = 0;
+                itemList.clear();
             }
         }
         weatherItems.postValue(newWeatherItems);

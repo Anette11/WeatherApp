@@ -13,4 +13,5 @@
     <string name="location_permissions_are_not_granted">Location permissions are not granted</string>
     <string name="exception_in_retrieving_city_name">Exception in retrieving city name</string>
     <string name="location_is_not_known">Location is not known</string>
+    <string name="exception_in_parse_date">Exception in parse date</string>
 </resources>

@@ -2,15 +2,23 @@ package com.example.weatherapp.presentation.utils;
 
 import android.text.format.DateUtils;
 
+import com.example.weatherapp.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 public class DateFormatter {
+
+    @Inject
+    ResourcesProvider resourcesProvider;
+
     private final SimpleDateFormat simpleDateFormatDefault = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm",
             Locale.getDefault()
@@ -26,8 +34,7 @@ public class DateFormatter {
             if (date == null) return null;
             return simpleDateFormatTo.format(date);
         } catch (ParseException e) {
-            Timber.d("Exception in parse date");
-            e.printStackTrace();
+            Timber.d(resourcesProvider.getString(R.string.exception_in_parse_date));
             return null;
         }
     }
@@ -46,8 +53,7 @@ public class DateFormatter {
             if (dateToCheck == null) return false;
             return DateUtils.isToday(dateToCheck.getTime());
         } catch (ParseException e) {
-            Timber.d("Exception in parse date");
-            e.printStackTrace();
+            Timber.d(resourcesProvider.getString(R.string.exception_in_parse_date));
             return false;
         }
     }
@@ -62,8 +68,7 @@ public class DateFormatter {
             return checkIfDateIsToday(dateStr) &&
                     calendarToday.get(Calendar.HOUR_OF_DAY) == calendarDateToCheck.get(Calendar.HOUR_OF_DAY);
         } catch (ParseException e) {
-            Timber.d("Exception in parse date");
-            e.printStackTrace();
+            Timber.d(resourcesProvider.getString(R.string.exception_in_parse_date));
             return false;
         }
     }

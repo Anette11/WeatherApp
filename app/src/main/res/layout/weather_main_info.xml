@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="8dp">
+    android:paddingHorizontal="@dimen/_8dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/material_card_view"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,25 +17,25 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="@dimen/_8dp">
 
             <TextView
                 android:id="@+id/text_view_time"
-                android:layout_width="80dp"
+                android:layout_width="@dimen/_80dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="12:00" />
 
             <TextView
                 android:id="@+id/text_view_city_name"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="@dimen/_80dp"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sp"
                 app:layout_constraintEnd_toStartOf="@id/text_view_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,9 +43,9 @@
 
             <ImageView
                 android:id="@+id/image_view"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="@dimen/_60dp"
+                android:layout_height="@dimen/_60dp"
+                android:layout_marginTop="@dimen/_8dp"
                 android:contentDescription="@string/weather_image_content_description"
                 android:scaleType="centerInside"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,11 +55,11 @@
 
             <TextView
                 android:id="@+id/text_view_description"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_8dp"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="@dimen/_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_view"
@@ -67,17 +67,17 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_icons"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_description">
 
                 <ImageView
                     android:id="@+id/image_view_temperature"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_20dp"
                     android:contentDescription="@string/icon_temperature_content_description"
                     android:src="@drawable/temperature_heat_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -86,8 +86,8 @@
 
                 <ImageView
                     android:id="@+id/image_view_wind_speed"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_20dp"
                     android:contentDescription="@string/icon_wind_speed_content_description"
                     android:src="@drawable/wind_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -97,8 +97,8 @@
 
                 <ImageView
                     android:id="@+id/image_view_humidity"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_20dp"
                     android:contentDescription="@string/icon_humidity_content_description"
                     android:src="@drawable/drop_humidity_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -109,19 +109,19 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_texts"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_icons">
 
                 <TextView
                     android:id="@+id/text_view_temperature"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/text_view_wind_speed"
                     app:layout_constraintStart_toStartOf="parent"
@@ -130,10 +130,10 @@
 
                 <TextView
                     android:id="@+id/text_view_wind_speed"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/text_view_humidity"
                     app:layout_constraintStart_toEndOf="@+id/text_view_temperature"
@@ -142,10 +142,10 @@
 
                 <TextView
                     android:id="@+id/text_view_humidity"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_view_wind_speed"

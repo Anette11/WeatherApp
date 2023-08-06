@@ -17,11 +17,11 @@ public class RemoteMappers {
             HourlyDto hourlyDto
     ) {
         return new Hourly(
-                hourlyDto.getRelativeHumidity2m(),
-                hourlyDto.getTemperature2m(),
+                hourlyDto.getHumidity(),
+                hourlyDto.getTemperature(),
                 hourlyDto.getTime(),
                 hourlyDto.getWeatherCode(),
-                hourlyDto.getWindSpeed10m()
+                hourlyDto.getWindSpeed()
         );
     }
 }

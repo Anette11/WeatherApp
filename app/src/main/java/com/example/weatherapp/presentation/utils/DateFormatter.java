@@ -4,6 +4,7 @@ import android.text.format.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -44,11 +45,14 @@ public class DateFormatter {
     }
 
     public boolean isDateIsClosestToNow(String dateStr) {
-        Date dateToday = new Date();
         try {
             Date dateToCheck = simpleDateFormatDefault.parse(dateStr);
+            Calendar calendarDateToCheck = Calendar.getInstance();
+            Calendar calendarToday = Calendar.getInstance();
             if (dateToCheck == null) return false;
-            return checkIfDateIsToday(dateStr) && dateToday.getHours() == dateToCheck.getHours();
+            calendarDateToCheck.setTime(dateToCheck);
+            return checkIfDateIsToday(dateStr) &&
+                    calendarToday.get(Calendar.HOUR_OF_DAY) == calendarDateToCheck.get(Calendar.HOUR_OF_DAY);
         } catch (ParseException e) {
             Timber.d("Exception in parse date");
             e.printStackTrace();

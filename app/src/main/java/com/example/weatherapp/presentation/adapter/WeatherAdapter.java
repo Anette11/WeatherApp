@@ -19,7 +19,7 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
     public WeatherAdapter() {
         delegatesManager
                 .addDelegate(new MainInfoAdapterDelegate())
-                .addDelegate(new HourlyInfoAdapterDelegate())
+                .addDelegate(new HourlyInfoEveryDayDelegateAdapter())
                 .addDelegate(new TextAdapterDelegate());
         setItems(weatherItems);
     }

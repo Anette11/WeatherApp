@@ -8,6 +8,7 @@ import com.example.weatherapp.WeatherType;
 import com.example.weatherapp.domain.data.GetWeatherResponse;
 import com.example.weatherapp.domain.data.Hourly;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
+import com.example.weatherapp.presentation.adapter.items.HourlyInfoEveryDayItem;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoItem;
 import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
 import com.example.weatherapp.presentation.adapter.items.TextItem;
@@ -113,17 +114,20 @@ public class WeatherViewModel extends ViewModel {
                                     humidity.get(i),
                                     weatherType.description
                             ));
-                    newWeatherItems.add(new TextItem("Today"));
                 }
-                newWeatherItems.add(
-                        new HourlyInfoItem(
-                                time.get(i),
-                                weatherType.icon,
-                                temperature.get(i),
-                                windSpeed.get(i),
-                                humidity.get(i),
-                                weatherType.description
-                        ));
+                newWeatherItems.add(new TextItem("Today"));
+                List<WeatherItem> weatherItemList = new ArrayList<>();
+                for (int j = 0; j < 10; j++) {
+                    weatherItemList.add(new HourlyInfoItem(
+                            time.get(i),
+                            weatherType.icon,
+                            temperature.get(i),
+                            windSpeed.get(i),
+                            humidity.get(i),
+                            weatherType.description
+                    ));
+                }
+                newWeatherItems.add(new HourlyInfoEveryDayItem(weatherItemList));
             }
         }
         weatherItems.postValue(newWeatherItems);

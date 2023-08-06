@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,10 @@ public class DateFormatter {
             "yyyy-MM-dd'T'HH:mm",
             Locale.getDefault()
     );
+
+    public String getTimezone() {
+        return TimeZone.getDefault().getID();
+    }
 
     private String convertDateFormat(
             String dateStr,

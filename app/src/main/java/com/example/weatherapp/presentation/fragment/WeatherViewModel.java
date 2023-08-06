@@ -78,7 +78,7 @@ public class WeatherViewModel extends ViewModel {
             double longitude
     ) {
         if (isWeatherInfoFetched.getValue() == Boolean.FALSE) {
-            getWeatherUseCase.execute(latitude, longitude)
+            getWeatherUseCase.execute(latitude, longitude, dateFormatter.getTimezone())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new SingleObserver<GetWeatherResponse>() {
                         @Override

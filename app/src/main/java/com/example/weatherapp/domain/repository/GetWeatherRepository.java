@@ -8,6 +8,7 @@ public interface GetWeatherRepository {
 
     Single<GetWeatherResponseDto> getWeather(
             double latitude,
-            double longitude
+            double longitude,
+            String timezone
     );
 }

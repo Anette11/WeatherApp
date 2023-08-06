@@ -19,9 +19,10 @@ public class GetWeatherUseCase {
 
     public Single<GetWeatherResponse> execute(
             double latitude,
-            double longitude
+            double longitude,
+            String timezone
     ) {
-        return repository.getWeather(latitude, longitude)
+        return repository.getWeather(latitude, longitude, timezone)
                 .flatMap(getWeatherResponseDto ->
                         Single.just(RemoteMappers.fromGetWeatherResponseDtoToGetWeatherResponse(getWeatherResponseDto)));
     }

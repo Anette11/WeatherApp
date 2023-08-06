@@ -20,8 +20,9 @@ public class GetWeatherRepositoryImpl implements GetWeatherRepository {
     @Override
     public Single<GetWeatherResponseDto> getWeather(
             double latitude,
-            double longitude
+            double longitude,
+            String timezone
     ) {
-        return weatherApi.getWeather(latitude, longitude);
+        return weatherApi.getWeather(latitude, longitude, timezone);
     }
 }

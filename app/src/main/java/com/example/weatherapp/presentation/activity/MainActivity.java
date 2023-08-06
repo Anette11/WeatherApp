@@ -11,7 +11,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,11 +21,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.presentation.utils.Coordinates;
+import com.example.weatherapp.presentation.utils.ToastProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE_LOCATION_PERMISSIONS = 123;
     private MainActivityViewModel viewModel;
+
+    @Inject
+    ToastProvider toastProvider;
 
     @Override
     protected void onCreate(
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             if (areLocationPermissionsGranted()) {
                 getLocation();
             } else {
-                showToast(getString(R.string.location_permissions_are_not_granted));
+                toastProvider.showToast(getString(R.string.location_permissions_are_not_granted));
             }
         }
     }
@@ -110,14 +115,10 @@ public class MainActivity extends AppCompatActivity {
                     viewModel.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
-                showToast(getString(R.string.exception_in_retrieving_city_name));
+                toastProvider.showToast(getString(R.string.exception_in_retrieving_city_name));
             }
         } else {
-            showToast(getString(R.string.location_is_not_known));
+            toastProvider.showToast(getString(R.string.location_is_not_known));
         }
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

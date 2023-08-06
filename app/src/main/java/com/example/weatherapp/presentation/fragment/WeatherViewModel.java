@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherType;
 import com.example.weatherapp.domain.data.GetWeatherResponse;
 import com.example.weatherapp.domain.data.Hourly;
@@ -16,6 +17,7 @@ import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.example.weatherapp.presentation.utils.Coordinates;
 import com.example.weatherapp.presentation.utils.DateFormatter;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.presentation.utils.ResourcesProvider;
 import com.example.weatherapp.presentation.utils.StringFormatter;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class WeatherViewModel extends ViewModel {
     private final GetWeatherUseCase getWeatherUseCase;
     private final DateFormatter dateFormatter;
     private final StringFormatter stringFormatter;
+    private final ResourcesProvider resourcesProvider;
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -56,11 +59,13 @@ public class WeatherViewModel extends ViewModel {
             GetWeatherUseCase getWeatherUseCase,
             DateFormatter dateFormatter,
             StringFormatter stringFormatter,
+            ResourcesProvider resourcesProvider,
             LocationCoordinatesContainer locationCoordinatesContainer
     ) {
         this.getWeatherUseCase = getWeatherUseCase;
         this.dateFormatter = dateFormatter;
         this.stringFormatter = stringFormatter;
+        this.resourcesProvider = resourcesProvider;
         this.locationCoordinatesContainer = locationCoordinatesContainer;
     }
 
@@ -105,7 +110,7 @@ public class WeatherViewModel extends ViewModel {
         if (coordinates != null) {
             cityName = coordinates.getCityName();
         } else {
-            cityName = "N/A";
+            cityName = resourcesProvider.getString(R.string.not_applicable);
         }
         Hourly hourly = getWeatherResponse.getHourly();
         List<String> time = hourly.getTime();
@@ -120,7 +125,7 @@ public class WeatherViewModel extends ViewModel {
                 time.size() != windSpeed.size() ||
                 time.size() != humidity.size()
         ) {
-            Timber.d("WeatherItems can not be created");
+            Timber.d(resourcesProvider.getString(R.string.weather_items_can_not_be_created));
             return;
         }
         List<WeatherItem> newWeatherItems = new ArrayList<>();
@@ -132,9 +137,9 @@ public class WeatherViewModel extends ViewModel {
                 boolean isDateToday = dateFormatter.checkIfDateIsToday(time.get(i));
                 String dateStr = time.get(i);
                 if (isDateToday) {
-                    dateStr = "Today";
+                    dateStr = resourcesProvider.getString(R.string.today);
                 } else {
-                    dateStr = dateFormatter.convertDateFormat(dateStr, "dd MMMM yyyy");
+                    dateStr = dateFormatter.convertDateFormatInLongText(dateStr);
                 }
                 newWeatherItems.add(new TextItem(dateStr));
             }
@@ -142,10 +147,7 @@ public class WeatherViewModel extends ViewModel {
             if (weatherType != null) {
                 itemList.add(
                         new HourlyInfoItem(
-                                dateFormatter.convertDateFormat(
-                                        time.get(i),
-                                        "HH:mm"
-                                ),
+                                dateFormatter.convertDateFormatInShortText(time.get(i)),
                                 weatherType.icon,
                                 stringFormatter.formatToTemperature(temperature.get(i)),
                                 stringFormatter.formatToWindSpeed(windSpeed.get(i)),
@@ -155,7 +157,7 @@ public class WeatherViewModel extends ViewModel {
                 boolean isDateIsClosestToNow = dateFormatter.isDateIsClosestToNow(time.get(i));
                 if (isDateIsClosestToNow) {
                     List<WeatherItem> mainInfoNow = new ArrayList<>();
-                    mainInfoNow.add(new TextItem("Now"));
+                    mainInfoNow.add(new TextItem(resourcesProvider.getString(R.string.now)));
                     mainInfoNow.add(
                             new MainInfoItem(
                                     cityName,
@@ -164,10 +166,7 @@ public class WeatherViewModel extends ViewModel {
                                     stringFormatter.formatToWindSpeed(windSpeed.get(i)),
                                     stringFormatter.formatToHumidity(humidity.get(i)),
                                     weatherType.description,
-                                    dateFormatter.convertDateFormat(
-                                            time.get(i),
-                                            "HH:mm"
-                                    )
+                                    dateFormatter.convertDateFormatInShortText(time.get(i))
                             )
                     );
                     newWeatherItems.addAll(0, mainInfoNow);

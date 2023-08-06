@@ -16,7 +16,7 @@ public class DateFormatter {
             Locale.getDefault()
     );
 
-    public String convertDateFormat(
+    private String convertDateFormat(
             String dateStr,
             String patternTo
     ) {
@@ -30,6 +30,14 @@ public class DateFormatter {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String convertDateFormatInShortText(String dateStr) {
+        return convertDateFormat(dateStr, "HH:mm");
+    }
+
+    public String convertDateFormatInLongText(String dateStr) {
+        return convertDateFormat(dateStr, "dd MMMM yyyy");
     }
 
     public boolean checkIfDateIsToday(String dateStr) {

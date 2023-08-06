@@ -6,4 +6,8 @@
     <string name="icon_wind_speed_content_description">Icon wind speed</string>
     <string name="icon_humidity_content_description">Icon humidity</string>
     <string name="weather_image_content_description">Weather image</string>
+    <string name="today">Today</string>
+    <string name="now">Now</string>
+    <string name="not_applicable">N/A</string>
+    <string name="weather_items_can_not_be_created">WeatherItems can not be created</string>
 </resources>

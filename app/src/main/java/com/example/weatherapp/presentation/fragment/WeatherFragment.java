@@ -59,9 +59,10 @@ public class WeatherFragment extends Fragment {
             if (weatherItems != null) weatherAdapter.updateWeatherItems(weatherItems);
         });
 
-        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        });
+        viewModel.getIsLoading().observe(
+                getViewLifecycleOwner(),
+                isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
+        );
     }
 
     private void setRecyclerView() {

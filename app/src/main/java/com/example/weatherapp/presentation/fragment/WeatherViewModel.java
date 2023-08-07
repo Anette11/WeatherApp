@@ -105,6 +105,7 @@ public class WeatherViewModel extends ViewModel {
     public void createWeatherItems(
             Hourly hourly
     ) {
+        if (hourly == null) return;
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         String cityName = coordinates != null ? coordinates.getCityName() : resourcesProvider.getString(R.string.not_applicable);
         List<String> time = hourly.getTime();

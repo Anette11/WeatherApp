@@ -49,20 +49,25 @@ public class WeatherFragment extends Fragment {
 
         viewModel.getLocationCoordinatesContainer()
                 .getCoordinates()
-                .observe(getViewLifecycleOwner(), coordinates -> viewModel.getWeather());
+                .observe(
+                        getViewLifecycleOwner(),
+                        coordinates -> viewModel.getWeather()
+                );
 
-        viewModel.getWeatherItems().observe(getViewLifecycleOwner(), weatherItems -> {
-            if (weatherItems != null) weatherAdapter.updateWeatherItems(weatherItems);
-        });
+        viewModel.getWeatherItems().observe(
+                getViewLifecycleOwner(),
+                weatherItems -> weatherAdapter.updateWeatherItems(weatherItems)
+        );
 
         viewModel.getIsLoading().observe(
                 getViewLifecycleOwner(),
                 isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
         );
 
-        viewModel.getWeatherFromDb().observe(getViewLifecycleOwner(), hourly -> {
-            if (hourly != null) viewModel.createWeatherItems(hourly);
-        });
+        viewModel.getWeatherFromDb().observe(
+                getViewLifecycleOwner(),
+                viewModel::createWeatherItems
+        );
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             viewModel.getWeather();

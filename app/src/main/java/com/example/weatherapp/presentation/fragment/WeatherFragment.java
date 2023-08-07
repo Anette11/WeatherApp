@@ -63,6 +63,10 @@ public class WeatherFragment extends Fragment {
                 getViewLifecycleOwner(),
                 isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
         );
+
+        viewModel.getWeatherFromDb().observe(getViewLifecycleOwner(), hourlyDbo -> {
+            if (hourlyDbo != null) viewModel.createWeatherItems(hourlyDbo);
+        });
     }
 
     private void setRecyclerView() {

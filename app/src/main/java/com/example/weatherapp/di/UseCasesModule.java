@@ -2,6 +2,8 @@ package com.example.weatherapp.di;
 
 import com.example.weatherapp.domain.repository.WeatherRepository;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
+import com.example.weatherapp.domain.use_case.RefreshWeatherUseCase;
+import com.example.weatherapp.presentation.utils.DateFormatter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +15,17 @@ import dagger.hilt.components.SingletonComponent;
 public class UseCasesModule {
 
     @Provides
-    GetWeatherUseCase provideGetWeatherUseCase(WeatherRepository repository) {
+    RefreshWeatherUseCase provideRefreshWeatherUseCase(
+            WeatherRepository repository,
+            DateFormatter dateFormatter
+    ) {
+        return new RefreshWeatherUseCase(repository, dateFormatter);
+    }
+
+    @Provides
+    GetWeatherUseCase provideGetWeatherUseCase(
+            WeatherRepository repository
+    ) {
         return new GetWeatherUseCase(repository);
     }
 }

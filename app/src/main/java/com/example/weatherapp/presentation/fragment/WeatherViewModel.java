@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherType;
+import com.example.weatherapp.data.local.LocalMappers;
+import com.example.weatherapp.data.local.dbo.HourlyDbo;
 import com.example.weatherapp.domain.data.Hourly;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
+import com.example.weatherapp.domain.use_case.RefreshWeatherUseCase;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoEveryDayItem;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoItem;
 import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
@@ -35,6 +38,7 @@ import timber.log.Timber;
 @HiltViewModel
 public class WeatherViewModel extends ViewModel {
 
+    private final RefreshWeatherUseCase refreshWeatherUseCase;
     private final GetWeatherUseCase getWeatherUseCase;
     private final DateFormatter dateFormatter;
     private final StringFormatter stringFormatter;
@@ -55,12 +59,14 @@ public class WeatherViewModel extends ViewModel {
 
     @Inject
     public WeatherViewModel(
+            RefreshWeatherUseCase refreshWeatherUseCase,
             GetWeatherUseCase getWeatherUseCase,
             DateFormatter dateFormatter,
             StringFormatter stringFormatter,
             ResourcesProvider resourcesProvider,
             LocationCoordinatesContainer locationCoordinatesContainer
     ) {
+        this.refreshWeatherUseCase = refreshWeatherUseCase;
         this.getWeatherUseCase = getWeatherUseCase;
         this.dateFormatter = dateFormatter;
         this.stringFormatter = stringFormatter;
@@ -77,9 +83,10 @@ public class WeatherViewModel extends ViewModel {
             double longitude
     ) {
         if (isWeatherInfoFetched.getValue() == Boolean.FALSE) {
-            getWeatherUseCase.execute(latitude, longitude, dateFormatter.getTimezone())
+            refreshWeatherUseCase
+                    .execute(latitude, longitude)
                     .subscribeOn(Schedulers.io())
-                    .subscribe(new SingleObserver<Hourly>() {
+                    .subscribe(new SingleObserver<Object>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
                             isLoading.postValue(true);
@@ -87,8 +94,7 @@ public class WeatherViewModel extends ViewModel {
                         }
 
                         @Override
-                        public void onSuccess(@NonNull Hourly hourly) {
-                            createWeatherItems(hourly);
+                        public void onSuccess(@NonNull Object o) {
                             isWeatherInfoFetched.postValue(true);
                             isLoading.postValue(false);
                         }
@@ -101,9 +107,10 @@ public class WeatherViewModel extends ViewModel {
         }
     }
 
-    private void createWeatherItems(
-            Hourly hourly
+    public void createWeatherItems(
+            HourlyDbo hourlyDbo
     ) {
+        Hourly hourly = LocalMappers.fromHourlyDboToHourly(hourlyDbo);
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         String cityName = coordinates != null ? coordinates.getCityName() : resourcesProvider.getString(R.string.not_applicable);
         List<String> time = hourly.getTime();
@@ -168,6 +175,10 @@ public class WeatherViewModel extends ViewModel {
             }
         }
         weatherItems.postValue(newWeatherItems);
+    }
+
+    public LiveData<HourlyDbo> getWeatherFromDb() {
+        return getWeatherUseCase.execute();
     }
 
     @Override

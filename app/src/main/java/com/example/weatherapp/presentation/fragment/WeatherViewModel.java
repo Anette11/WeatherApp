@@ -75,30 +75,31 @@ public class WeatherViewModel extends ViewModel {
         return locationCoordinatesContainer;
     }
 
-    public void getWeather(
-            double latitude,
-            double longitude
-    ) {
-        refreshWeatherUseCase
-                .execute(latitude, longitude)
-                .subscribeOn(Schedulers.io())
-                .subscribe(new SingleObserver<Object>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        compositeDisposable.add(d);
-                        isLoading.postValue(true);
-                    }
+    public void getWeather() {
+        compositeDisposable.clear();
+        Coordinates coordinates = getLocationCoordinatesContainer().getCoordinates().getValue();
+        if (coordinates != null) {
+            refreshWeatherUseCase
+                    .execute(coordinates.getLatitude(), coordinates.getLongitude())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new SingleObserver<Object>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+                            compositeDisposable.add(d);
+                            isLoading.postValue(true);
+                        }
 
-                    @Override
-                    public void onSuccess(@NonNull Object o) {
-                        isLoading.postValue(false);
-                    }
+                        @Override
+                        public void onSuccess(@NonNull Object o) {
+                            isLoading.postValue(false);
+                        }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        isLoading.postValue(false);
-                    }
-                });
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            isLoading.postValue(false);
+                        }
+                    });
+        }
     }
 
     public void createWeatherItems(

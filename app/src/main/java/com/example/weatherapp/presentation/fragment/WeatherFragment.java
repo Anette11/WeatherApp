@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherAdapter;
-import com.example.weatherapp.presentation.utils.Coordinates;
 
 import javax.inject.Inject;
 
@@ -50,11 +49,7 @@ public class WeatherFragment extends Fragment {
 
         viewModel.getLocationCoordinatesContainer()
                 .getCoordinates()
-                .observe(getViewLifecycleOwner(), coordinates -> {
-                    if (coordinates != null) {
-                        viewModel.getWeather(coordinates.getLatitude(), coordinates.getLongitude());
-                    }
-                });
+                .observe(getViewLifecycleOwner(), coordinates -> viewModel.getWeather());
 
         viewModel.getWeatherItems().observe(getViewLifecycleOwner(), weatherItems -> {
             if (weatherItems != null) weatherAdapter.updateWeatherItems(weatherItems);
@@ -70,10 +65,7 @@ public class WeatherFragment extends Fragment {
         });
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            Coordinates coordinates = viewModel.getLocationCoordinatesContainer().getCoordinates().getValue();
-            if (coordinates != null) {
-                viewModel.getWeather(coordinates.getLatitude(), coordinates.getLongitude());
-            }
+            viewModel.getWeather();
             binding.swipeRefreshLayout.setRefreshing(false);
         });
     }

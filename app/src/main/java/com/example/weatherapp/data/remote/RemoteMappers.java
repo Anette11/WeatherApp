@@ -1,16 +1,16 @@
 package com.example.weatherapp.data.remote;
 
-import com.example.weatherapp.data.remote.dto.GetWeatherResponseDto;
 import com.example.weatherapp.data.remote.dto.HourlyDto;
-import com.example.weatherapp.domain.data.GetWeatherResponse;
+import com.example.weatherapp.data.remote.dto.WeatherDto;
 import com.example.weatherapp.domain.data.Hourly;
+import com.example.weatherapp.domain.data.Weather;
 
 public class RemoteMappers {
 
-    public static GetWeatherResponse fromGetWeatherResponseDtoToGetWeatherResponse(
-            GetWeatherResponseDto getWeatherResponseDto
+    public static Weather fromWeatherDtoToWeather(
+            WeatherDto weatherDto
     ) {
-        return new GetWeatherResponse(fromHourlyDtoToHourly(getWeatherResponseDto.getHourly()));
+        return new Weather(fromHourlyDtoToHourly(weatherDto.getHourly()));
     }
 
     private static Hourly fromHourlyDtoToHourly(

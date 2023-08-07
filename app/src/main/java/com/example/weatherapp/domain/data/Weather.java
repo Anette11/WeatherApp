@@ -1,9 +1,9 @@
 package com.example.weatherapp.domain.data;
 
-public class GetWeatherResponse {
+public class Weather {
     private final Hourly hourly;
 
-    public GetWeatherResponse(Hourly hourly) {
+    public Weather(Hourly hourly) {
         this.hourly = hourly;
     }
 

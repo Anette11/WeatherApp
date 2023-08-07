@@ -1,9 +1,9 @@
 package com.example.weatherapp.data.remote.dto;
 
-public class GetWeatherResponseDto {
+public class WeatherDto {
     private final HourlyDto hourly;
 
-    public GetWeatherResponseDto(HourlyDto hourly) {
+    public WeatherDto(HourlyDto hourly) {
         this.hourly = hourly;
     }
 

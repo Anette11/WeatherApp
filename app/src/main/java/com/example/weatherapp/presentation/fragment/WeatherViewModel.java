@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherType;
-import com.example.weatherapp.domain.data.GetWeatherResponse;
+import com.example.weatherapp.domain.data.Weather;
 import com.example.weatherapp.domain.data.Hourly;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoEveryDayItem;
@@ -80,7 +80,7 @@ public class WeatherViewModel extends ViewModel {
         if (isWeatherInfoFetched.getValue() == Boolean.FALSE) {
             getWeatherUseCase.execute(latitude, longitude, dateFormatter.getTimezone())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(new SingleObserver<GetWeatherResponse>() {
+                    .subscribe(new SingleObserver<Weather>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
                             isLoading.postValue(true);
@@ -88,7 +88,7 @@ public class WeatherViewModel extends ViewModel {
                         }
 
                         @Override
-                        public void onSuccess(@NonNull GetWeatherResponse getWeatherResponse) {
+                        public void onSuccess(@NonNull Weather getWeatherResponse) {
                             createWeatherItems(getWeatherResponse);
                             isWeatherInfoFetched.postValue(true);
                             isLoading.postValue(false);
@@ -103,7 +103,7 @@ public class WeatherViewModel extends ViewModel {
     }
 
     private void createWeatherItems(
-            GetWeatherResponse getWeatherResponse
+            Weather getWeatherResponse
     ) {
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         String cityName = coordinates != null ? coordinates.getCityName() : resourcesProvider.getString(R.string.not_applicable);

@@ -64,8 +64,8 @@ public class WeatherFragment extends Fragment {
                 isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
         );
 
-        viewModel.getWeatherFromDb().observe(getViewLifecycleOwner(), hourlyDbo -> {
-            if (hourlyDbo != null) viewModel.createWeatherItems(hourlyDbo);
+        viewModel.getWeatherFromDb().observe(getViewLifecycleOwner(), hourly -> {
+            if (hourly != null) viewModel.createWeatherItems(hourly);
         });
     }
 

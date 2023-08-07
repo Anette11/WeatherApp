@@ -1,7 +1,7 @@
 package com.example.weatherapp.di;
 
 import com.example.weatherapp.domain.repository.WeatherRepository;
-import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
+import com.example.weatherapp.domain.use_case.GetWeatherFromDbUseCase;
 import com.example.weatherapp.domain.use_case.RefreshWeatherUseCase;
 import com.example.weatherapp.presentation.utils.DateFormatter;
 
@@ -23,9 +23,9 @@ public class UseCasesModule {
     }
 
     @Provides
-    GetWeatherUseCase provideGetWeatherUseCase(
+    GetWeatherFromDbUseCase provideGetWeatherFromDbUseCase(
             WeatherRepository repository
     ) {
-        return new GetWeatherUseCase(repository);
+        return new GetWeatherFromDbUseCase(repository);
     }
 }

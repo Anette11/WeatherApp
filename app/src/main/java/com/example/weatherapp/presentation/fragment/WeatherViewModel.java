@@ -2,12 +2,10 @@ package com.example.weatherapp.presentation.fragment;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherType;
-import com.example.weatherapp.data.local.LocalMappers;
 import com.example.weatherapp.domain.data.Hourly;
 import com.example.weatherapp.domain.use_case.GetWeatherFromDbUseCase;
 import com.example.weatherapp.domain.use_case.RefreshWeatherUseCase;
@@ -177,10 +175,7 @@ public class WeatherViewModel extends ViewModel {
     }
 
     public LiveData<Hourly> getWeatherFromDb() {
-        return Transformations.map(getWeatherUseCase.execute(), hourlyDbo -> {
-            if (hourlyDbo != null) return LocalMappers.fromHourlyDboToHourly(hourlyDbo);
-            return null;
-        });
+        return getWeatherUseCase.execute();
     }
 
     @Override

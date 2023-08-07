@@ -4,7 +4,7 @@ import com.example.weatherapp.data.remote.dto.WeatherDto;
 
 import io.reactivex.rxjava3.core.Single;
 
-public interface GetWeatherRepository {
+public interface WeatherRepository {
 
     Single<WeatherDto> getWeather(
             double latitude,

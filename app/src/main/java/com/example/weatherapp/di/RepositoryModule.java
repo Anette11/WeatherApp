@@ -1,7 +1,7 @@
 package com.example.weatherapp.di;
 
-import com.example.weatherapp.data.repository.GetWeatherRepositoryImpl;
-import com.example.weatherapp.domain.repository.GetWeatherRepository;
+import com.example.weatherapp.data.repository.WeatherRepositoryImpl;
+import com.example.weatherapp.domain.repository.WeatherRepository;
 
 import dagger.Binds;
 import dagger.Module;
@@ -13,5 +13,5 @@ import dagger.hilt.components.SingletonComponent;
 public abstract class RepositoryModule {
 
     @Binds
-    abstract GetWeatherRepository bindGetWeatherRepository(GetWeatherRepositoryImpl repository);
+    abstract WeatherRepository bindWeatherRepository(WeatherRepositoryImpl repository);
 }

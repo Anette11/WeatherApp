@@ -2,18 +2,18 @@ package com.example.weatherapp.data.repository;
 
 import com.example.weatherapp.data.remote.WeatherApi;
 import com.example.weatherapp.data.remote.dto.WeatherDto;
-import com.example.weatherapp.domain.repository.GetWeatherRepository;
+import com.example.weatherapp.domain.repository.WeatherRepository;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
 
-public class GetWeatherRepositoryImpl implements GetWeatherRepository {
+public class WeatherRepositoryImpl implements WeatherRepository {
 
     private final WeatherApi weatherApi;
 
     @Inject
-    public GetWeatherRepositoryImpl(WeatherApi weatherApi) {
+    public WeatherRepositoryImpl(WeatherApi weatherApi) {
         this.weatherApi = weatherApi;
     }
 

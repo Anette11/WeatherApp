@@ -15,7 +15,7 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
     public void updateWeatherItems(List<WeatherItem> newWeatherItems) {
         weatherItems.clear();
         weatherItems.addAll(newWeatherItems);
-        notifyItemRangeInserted(0, newWeatherItems.size());
+        notifyDataSetChanged();
     }
 
     @Inject

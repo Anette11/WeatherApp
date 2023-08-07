@@ -13,6 +13,7 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
     private final List<WeatherItem> weatherItems = new ArrayList<>();
 
     public void updateWeatherItems(List<WeatherItem> newWeatherItems) {
+        if (newWeatherItems == null) return;
         weatherItems.clear();
         weatherItems.addAll(newWeatherItems);
         notifyDataSetChanged();

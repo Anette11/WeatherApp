@@ -1,6 +1,8 @@
 <resources>
 
-    <style name="Base.Theme.WeatherApp" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Base.Theme.WeatherApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
 
     <style name="Theme.WeatherApp" parent="Base.Theme.WeatherApp" />
 

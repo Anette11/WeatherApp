@@ -15,6 +15,12 @@ import java.util.List;
 
 public class MainInfoAdapterDelegate extends AbsListItemAdapterDelegate<MainInfoItem, WeatherItem, MainInfoAdapterDelegate.MainInfoViewHolder> {
 
+    private final OnItemClickListener onItemClickListener;
+
+    public MainInfoAdapterDelegate(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     protected boolean isForViewType(
             @NonNull WeatherItem item,
@@ -50,6 +56,13 @@ public class MainInfoAdapterDelegate extends AbsListItemAdapterDelegate<MainInfo
         holder.binding.textViewDescription.setText(item.getDescription());
         holder.binding.textViewTime.setText(item.getTime());
         holder.binding.imageView.setBackgroundResource(item.getImage());
+
+        holder.binding.textViewCityName.setOnClickListener(v -> {
+            int position = holder.getAbsoluteAdapterPosition();
+            if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
+                onItemClickListener.onItemClick(item);
+            }
+        });
     }
 
     static class MainInfoViewHolder extends RecyclerView.ViewHolder {

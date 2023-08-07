@@ -12,6 +12,8 @@ public class MainInfoItem implements WeatherItem {
     private final String humidity;
     private final String description;
     private final String time;
+    private final double latitude;
+    private final double longitude;
 
     public MainInfoItem(
             String cityName,
@@ -20,7 +22,9 @@ public class MainInfoItem implements WeatherItem {
             String windSpeed,
             String humidity,
             String description,
-            String time
+            String time,
+            double latitude,
+            double longitude
     ) {
         this.cityName = cityName;
         this.image = image;
@@ -29,6 +33,8 @@ public class MainInfoItem implements WeatherItem {
         this.humidity = humidity;
         this.description = description;
         this.time = time;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getCityName() {
@@ -57,5 +63,13 @@ public class MainInfoItem implements WeatherItem {
 
     public String getTime() {
         return time;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }

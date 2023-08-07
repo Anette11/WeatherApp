@@ -106,7 +106,8 @@ public class WeatherViewModel extends ViewModel {
     ) {
         if (hourly == null) return;
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
-        String cityName = coordinates != null ? coordinates.getCityName() : resourcesProvider.getString(R.string.not_applicable);
+        if (coordinates == null) return;
+        String cityName = coordinates.getCityName();
         List<String> time = hourly.getTime();
         List<Integer> weatherCode = hourly.getWeatherCode();
         List<Double> temperature = hourly.getTemperature();
@@ -156,7 +157,9 @@ public class WeatherViewModel extends ViewModel {
                                     stringFormatter.formatToWindSpeed(windSpeed.get(i)),
                                     stringFormatter.formatToHumidity(humidity.get(i)),
                                     weatherType.description,
-                                    dateFormatter.convertDateFormatInShortText(time.get(i))
+                                    dateFormatter.convertDateFormatInShortText(time.get(i)),
+                                    coordinates.getLatitude(),
+                                    coordinates.getLongitude()
                             )
                     );
                     newWeatherItems.addAll(0, mainInfoNow);

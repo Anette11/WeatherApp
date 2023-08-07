@@ -6,8 +6,6 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
 
     private final List<WeatherItem> weatherItems = new ArrayList<>();
@@ -19,10 +17,11 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
         notifyDataSetChanged();
     }
 
-    @Inject
-    public WeatherAdapter() {
+    public WeatherAdapter(
+            OnItemClickListener onItemClickListener
+    ) {
         delegatesManager
-                .addDelegate(new MainInfoAdapterDelegate())
+                .addDelegate(new MainInfoAdapterDelegate(onItemClickListener))
                 .addDelegate(new HourlyInfoEveryDayDelegateAdapter())
                 .addDelegate(new TextAdapterDelegate());
         setItems(weatherItems);

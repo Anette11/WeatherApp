@@ -1,5 +1,7 @@
 package com.example.weatherapp.presentation.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherAdapter;
+import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
+import com.example.weatherapp.presentation.utils.ToastProvider;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -23,8 +30,10 @@ public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding binding;
 
+    private WeatherAdapter weatherAdapter;
+
     @Inject
-    WeatherAdapter weatherAdapter;
+    ToastProvider toastProvider;
 
     @Nullable
     @Override
@@ -43,6 +52,16 @@ public class WeatherFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         super.onViewCreated(view, savedInstanceState);
+
+        weatherAdapter = new WeatherAdapter(weatherItem -> {
+            if (weatherItem instanceof MainInfoItem) {
+                onLocationClick(
+                        ((MainInfoItem) weatherItem).getLatitude(),
+                        ((MainInfoItem) weatherItem).getLongitude()
+                );
+            }
+        });
+
         setRecyclerView();
 
         WeatherViewModel viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
@@ -79,6 +98,19 @@ public class WeatherFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(weatherAdapter);
+    }
+
+    private void onLocationClick(
+            double latitude,
+            double longitude
+    ) {
+        try {
+            String coordinates = String.format(Locale.getDefault(), "geo:%f,%f", latitude, longitude);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(coordinates));
+            startActivity(intent);
+        } catch (Exception e) {
+            toastProvider.showToast(getString(R.string.exception_in_show_location_in_map));
+        }
     }
 
     @Override

@@ -21,21 +21,21 @@
 
             <TextView
                 android:id="@+id/text_view_time"
+                style="@style/Text.Large"
                 android:layout_width="@dimen/_80dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
-                android:textSize="@dimen/_18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="12:00" />
 
             <TextView
                 android:id="@+id/text_view_city_name"
+                style="@style/Text.Large"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_80dp"
                 android:textAlignment="center"
-                android:textSize="@dimen/_18sp"
                 app:layout_constraintEnd_toStartOf="@id/text_view_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,11 +55,11 @@
 
             <TextView
                 android:id="@+id/text_view_description"
+                style="@style/Text.Medium"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8dp"
                 android:textAlignment="center"
-                android:textSize="@dimen/_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_view"
@@ -118,10 +118,10 @@
 
                 <TextView
                     android:id="@+id/text_view_temperature"
+                    style="@style/Text.Small"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/text_view_wind_speed"
                     app:layout_constraintStart_toStartOf="parent"
@@ -130,10 +130,10 @@
 
                 <TextView
                     android:id="@+id/text_view_wind_speed"
+                    style="@style/Text.Small"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/text_view_humidity"
                     app:layout_constraintStart_toEndOf="@+id/text_view_temperature"
@@ -142,10 +142,10 @@
 
                 <TextView
                     android:id="@+id/text_view_humidity"
+                    style="@style/Text.Small"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_view_wind_speed"

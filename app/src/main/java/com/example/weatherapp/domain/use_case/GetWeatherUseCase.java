@@ -22,8 +22,8 @@ public class GetWeatherUseCase {
             double longitude,
             String timezone
     ) {
-        return repository.getWeather(latitude, longitude, timezone)
-                .flatMap(getWeatherResponseDto ->
-                        Single.just(RemoteMappers.fromWeatherDtoToWeather(getWeatherResponseDto)));
+        return repository
+                .getWeather(latitude, longitude, timezone)
+                .flatMap(weatherDto -> Single.just(RemoteMappers.fromWeatherDtoToWeather(weatherDto)));
     }
 }

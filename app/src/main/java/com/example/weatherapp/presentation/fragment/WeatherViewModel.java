@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.WeatherType;
-import com.example.weatherapp.domain.data.Weather;
 import com.example.weatherapp.domain.data.Hourly;
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase;
 import com.example.weatherapp.presentation.adapter.items.HourlyInfoEveryDayItem;
@@ -80,7 +79,7 @@ public class WeatherViewModel extends ViewModel {
         if (isWeatherInfoFetched.getValue() == Boolean.FALSE) {
             getWeatherUseCase.execute(latitude, longitude, dateFormatter.getTimezone())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(new SingleObserver<Weather>() {
+                    .subscribe(new SingleObserver<Hourly>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
                             isLoading.postValue(true);
@@ -88,8 +87,8 @@ public class WeatherViewModel extends ViewModel {
                         }
 
                         @Override
-                        public void onSuccess(@NonNull Weather getWeatherResponse) {
-                            createWeatherItems(getWeatherResponse);
+                        public void onSuccess(@NonNull Hourly hourly) {
+                            createWeatherItems(hourly);
                             isWeatherInfoFetched.postValue(true);
                             isLoading.postValue(false);
                         }
@@ -103,11 +102,10 @@ public class WeatherViewModel extends ViewModel {
     }
 
     private void createWeatherItems(
-            Weather getWeatherResponse
+            Hourly hourly
     ) {
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         String cityName = coordinates != null ? coordinates.getCityName() : resourcesProvider.getString(R.string.not_applicable);
-        Hourly hourly = getWeatherResponse.getHourly();
         List<String> time = hourly.getTime();
         List<Integer> weatherCode = hourly.getWeatherCode();
         List<Double> temperature = hourly.getTemperature();

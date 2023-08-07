@@ -44,7 +44,6 @@ public class WeatherViewModel extends ViewModel {
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
-    private final MutableLiveData<Boolean> isWeatherInfoFetched = new MutableLiveData<>(false);
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public LiveData<List<WeatherItem>> getWeatherItems() {
@@ -80,29 +79,26 @@ public class WeatherViewModel extends ViewModel {
             double latitude,
             double longitude
     ) {
-        if (isWeatherInfoFetched.getValue() == Boolean.FALSE) {
-            refreshWeatherUseCase
-                    .execute(latitude, longitude)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(new SingleObserver<Object>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
-                            isLoading.postValue(true);
-                            compositeDisposable.add(d);
-                        }
+        refreshWeatherUseCase
+                .execute(latitude, longitude)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                        isLoading.postValue(true);
+                    }
 
-                        @Override
-                        public void onSuccess(@NonNull Object o) {
-                            isWeatherInfoFetched.postValue(true);
-                            isLoading.postValue(false);
-                        }
+                    @Override
+                    public void onSuccess(@NonNull Object o) {
+                        isLoading.postValue(false);
+                    }
 
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            isLoading.postValue(false);
-                        }
-                    });
-        }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        isLoading.postValue(false);
+                    }
+                });
     }
 
     public void createWeatherItems(

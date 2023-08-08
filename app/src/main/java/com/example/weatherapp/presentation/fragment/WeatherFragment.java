@@ -29,8 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding binding;
-
     private WeatherAdapter weatherAdapter;
+    private WeatherViewModel viewModel;
 
     @Inject
     ToastProvider toastProvider;
@@ -53,6 +53,8 @@ public class WeatherFragment extends Fragment {
     ) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+
         weatherAdapter = new WeatherAdapter(weatherItem -> {
             if (weatherItem instanceof MainInfoItem) {
                 onLocationClick(
@@ -64,7 +66,9 @@ public class WeatherFragment extends Fragment {
 
         setRecyclerView();
 
-        WeatherViewModel viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null) toastProvider.showToast(errorMessage);
+        });
 
         viewModel.getLocationCoordinatesContainer()
                 .getCoordinates()
@@ -109,7 +113,7 @@ public class WeatherFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(coordinates));
             startActivity(intent);
         } catch (Exception e) {
-            toastProvider.showToast(getString(R.string.exception_in_show_location_in_map));
+            viewModel.onErrorMessage(getString(R.string.exception_in_show_location_in_map));
         }
     }
 

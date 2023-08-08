@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="exception_in_parse_date">Exception in parse date</string>
+    <string name="error_occurred">Error occurred</string>
     <string name="exception_in_retrieving_city_name">Exception in retrieving city name</string>
     <string name="exception_in_show_location_in_map">Exception in show location in map</string>
     <string name="icon_humidity_content_description">Icon humidity</string>

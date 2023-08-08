@@ -16,6 +16,7 @@ import com.example.weatherapp.presentation.adapter.items.TextItem;
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.example.weatherapp.presentation.utils.Coordinates;
 import com.example.weatherapp.presentation.utils.DateFormatter;
+import com.example.weatherapp.presentation.utils.ErrorMessageHolder;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.ResourcesProvider;
 import com.example.weatherapp.presentation.utils.StringFormatter;
@@ -31,7 +32,6 @@ import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import timber.log.Timber;
 
 @HiltViewModel
 public class WeatherViewModel extends ViewModel {
@@ -41,6 +41,7 @@ public class WeatherViewModel extends ViewModel {
     private final DateFormatter dateFormatter;
     private final StringFormatter stringFormatter;
     private final ResourcesProvider resourcesProvider;
+    private final ErrorMessageHolder errorMessageHolder;
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -54,6 +55,22 @@ public class WeatherViewModel extends ViewModel {
         return isLoading;
     }
 
+    public LocationCoordinatesContainer getLocationCoordinatesContainer() {
+        return locationCoordinatesContainer;
+    }
+
+    public LiveData<Hourly> getWeatherFromDb() {
+        return getWeatherUseCase.execute();
+    }
+
+    public LiveData<String> getErrorMessage() {
+        return errorMessageHolder.getErrorMessage();
+    }
+
+    public void onErrorMessage(String newErrorMessage) {
+        errorMessageHolder.onErrorMessage(newErrorMessage);
+    }
+
     @Inject
     public WeatherViewModel(
             RefreshWeatherUseCase refreshWeatherUseCase,
@@ -61,6 +78,7 @@ public class WeatherViewModel extends ViewModel {
             DateFormatter dateFormatter,
             StringFormatter stringFormatter,
             ResourcesProvider resourcesProvider,
+            ErrorMessageHolder errorMessageHolder,
             LocationCoordinatesContainer locationCoordinatesContainer
     ) {
         this.refreshWeatherUseCase = refreshWeatherUseCase;
@@ -68,11 +86,8 @@ public class WeatherViewModel extends ViewModel {
         this.dateFormatter = dateFormatter;
         this.stringFormatter = stringFormatter;
         this.resourcesProvider = resourcesProvider;
+        this.errorMessageHolder = errorMessageHolder;
         this.locationCoordinatesContainer = locationCoordinatesContainer;
-    }
-
-    public LocationCoordinatesContainer getLocationCoordinatesContainer() {
-        return locationCoordinatesContainer;
     }
 
     public void getWeather() {
@@ -97,6 +112,7 @@ public class WeatherViewModel extends ViewModel {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         isLoading.postValue(false);
+                        onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
                     }
                 });
     }
@@ -120,7 +136,7 @@ public class WeatherViewModel extends ViewModel {
                 time.size() != windSpeed.size() ||
                 time.size() != humidity.size()
         ) {
-            Timber.d(resourcesProvider.getString(R.string.weather_items_can_not_be_created));
+            onErrorMessage(resourcesProvider.getString(R.string.weather_items_can_not_be_created));
             return;
         }
         List<WeatherItem> newWeatherItems = new ArrayList<>();
@@ -172,10 +188,6 @@ public class WeatherViewModel extends ViewModel {
             }
         }
         weatherItems.postValue(newWeatherItems);
-    }
-
-    public LiveData<Hourly> getWeatherFromDb() {
-        return getWeatherUseCase.execute();
     }
 
     @Override

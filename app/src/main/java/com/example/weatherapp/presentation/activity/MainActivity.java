@@ -46,11 +46,16 @@ public class MainActivity extends AppCompatActivity {
             Bundle savedInstanceState
     ) {
         super.onCreate(savedInstanceState);
+
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        viewModel.getErrorMessage().observe(this, errorMessage -> {
+            if (errorMessage != null) toastProvider.showToast(errorMessage);
+        });
 
         if (areLocationPermissionsGranted()) {
             getLocation();
@@ -72,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             if (areLocationPermissionsGranted()) {
                 getLocation();
             } else {
-                toastProvider.showToast(getString(R.string.location_permissions_are_not_granted));
+                viewModel.onErrorMessage(getString(R.string.location_permissions_are_not_granted));
             }
         }
     }
@@ -115,10 +120,10 @@ public class MainActivity extends AppCompatActivity {
                     viewModel.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
-                toastProvider.showToast(getString(R.string.exception_in_retrieving_city_name));
+                viewModel.onErrorMessage(getString(R.string.exception_in_retrieving_city_name));
             }
         } else {
-            toastProvider.showToast(getString(R.string.location_is_not_known));
+            viewModel.onErrorMessage(getString(R.string.location_is_not_known));
         }
     }
 }

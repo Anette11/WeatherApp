@@ -24,6 +24,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 @AndroidEntryPoint
 public class WeatherFragment extends Fragment {
@@ -31,6 +33,7 @@ public class WeatherFragment extends Fragment {
     private FragmentWeatherBinding binding;
     private WeatherAdapter weatherAdapter;
     private WeatherViewModel viewModel;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     ToastProvider toastProvider;
@@ -55,6 +58,15 @@ public class WeatherFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
+        Disposable disposableErrorMessage = viewModel
+                .getErrorMessageContainer()
+                .getPublishSubject()
+                .subscribe(
+                        errorMessage -> toastProvider.showToast(errorMessage),
+                        error -> toastProvider.showToast(getString(R.string.error_occurred))
+                );
+        compositeDisposable.add(disposableErrorMessage);
+
         weatherAdapter = new WeatherAdapter(weatherItem -> {
             if (weatherItem instanceof MainInfoItem) {
                 onLocationClick(
@@ -66,16 +78,7 @@ public class WeatherFragment extends Fragment {
 
         setRecyclerView();
 
-        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
-            if (errorMessage != null) toastProvider.showToast(errorMessage);
-        });
-
-        viewModel.getLocationCoordinatesContainer()
-                .getCoordinates()
-                .observe(
-                        getViewLifecycleOwner(),
-                        coordinates -> viewModel.getWeather()
-                );
+        if (!viewModel.isWeatherInitiallyRequested()) viewModel.getWeather();
 
         viewModel.getWeatherItems().observe(
                 getViewLifecycleOwner(),
@@ -119,7 +122,8 @@ public class WeatherFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         binding = null;
+        compositeDisposable.dispose();
+        super.onDestroyView();
     }
 }

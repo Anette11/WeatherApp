@@ -1,6 +1,7 @@
 package com.example.weatherapp.di;
 
 import com.example.weatherapp.presentation.utils.DateFormatter;
+import com.example.weatherapp.presentation.utils.ErrorMessageContainer;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.StringFormatter;
 
@@ -29,5 +30,10 @@ public class UtilsModule {
     @Provides
     StringFormatter provideStringFormatter() {
         return new StringFormatter();
+    }
+
+    @Provides
+    ErrorMessageContainer provideErrorMessageContainer() {
+        return new ErrorMessageContainer();
     }
 }

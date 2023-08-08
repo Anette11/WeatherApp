@@ -16,11 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.presentation.utils.Coordinates;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.ToastProvider;
 
 import java.io.IOException;
@@ -36,10 +36,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE_LOCATION_PERMISSIONS = 123;
-    private MainActivityViewModel viewModel;
 
     @Inject
     ToastProvider toastProvider;
+
+    @Inject
+    LocationCoordinatesContainer locationCoordinatesContainer;
 
     @Override
     protected void onCreate(
@@ -50,12 +52,6 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-
-        viewModel.getErrorMessage().observe(this, errorMessage -> {
-            if (errorMessage != null) toastProvider.showToast(errorMessage);
-        });
 
         if (areLocationPermissionsGranted()) {
             getLocation();
@@ -77,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             if (areLocationPermissionsGranted()) {
                 getLocation();
             } else {
-                viewModel.onErrorMessage(getString(R.string.location_permissions_are_not_granted));
+                toastProvider.showToast(getString(R.string.location_permissions_are_not_granted));
             }
         }
     }
@@ -117,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null) {
                     String cityName = addresses.get(0).getLocality();
-                    viewModel.updateCoordinates(new Coordinates(latitude, longitude, cityName));
+                    locationCoordinatesContainer.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
-                viewModel.onErrorMessage(getString(R.string.exception_in_retrieving_city_name));
+                toastProvider.showToast(getString(R.string.exception_in_retrieving_city_name));
             }
         } else {
-            viewModel.onErrorMessage(getString(R.string.location_is_not_known));
+            toastProvider.showToast(getString(R.string.location_is_not_known));
         }
     }
 }

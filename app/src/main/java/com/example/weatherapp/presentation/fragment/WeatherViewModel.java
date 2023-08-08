@@ -16,7 +16,7 @@ import com.example.weatherapp.presentation.adapter.items.TextItem;
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.example.weatherapp.presentation.utils.Coordinates;
 import com.example.weatherapp.presentation.utils.DateFormatter;
-import com.example.weatherapp.presentation.utils.ErrorMessageHolder;
+import com.example.weatherapp.presentation.utils.ErrorMessageContainer;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.ResourcesProvider;
 import com.example.weatherapp.presentation.utils.StringFormatter;
@@ -28,6 +28,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -42,11 +43,16 @@ public class WeatherViewModel extends ViewModel {
     private final DateFormatter dateFormatter;
     private final StringFormatter stringFormatter;
     private final ResourcesProvider resourcesProvider;
-    private final ErrorMessageHolder errorMessageHolder;
+    private final ErrorMessageContainer errorMessageContainer;
     private final LocationCoordinatesContainer locationCoordinatesContainer;
     private final MutableLiveData<List<WeatherItem>> weatherItems = new MutableLiveData<>(null);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private boolean isWeatherInitiallyRequested = false;
+
+    public boolean isWeatherInitiallyRequested() {
+        return isWeatherInitiallyRequested;
+    }
 
     public LiveData<List<WeatherItem>> getWeatherItems() {
         return weatherItems;
@@ -56,20 +62,16 @@ public class WeatherViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LocationCoordinatesContainer getLocationCoordinatesContainer() {
-        return locationCoordinatesContainer;
-    }
-
     public LiveData<Hourly> getWeatherFromDb() {
         return getWeatherUseCase.execute();
     }
 
-    public LiveData<String> getErrorMessage() {
-        return errorMessageHolder.getErrorMessage();
+    public void onErrorMessage(String errorMessage) {
+        errorMessageContainer.onErrorMessage(errorMessage);
     }
 
-    public void onErrorMessage(String newErrorMessage) {
-        errorMessageHolder.onErrorMessage(newErrorMessage);
+    public ErrorMessageContainer getErrorMessageContainer() {
+        return errorMessageContainer;
     }
 
     @Inject
@@ -79,7 +81,7 @@ public class WeatherViewModel extends ViewModel {
             DateFormatter dateFormatter,
             StringFormatter stringFormatter,
             ResourcesProvider resourcesProvider,
-            ErrorMessageHolder errorMessageHolder,
+            ErrorMessageContainer errorMessageHolder,
             LocationCoordinatesContainer locationCoordinatesContainer
     ) {
         this.refreshWeatherUseCase = refreshWeatherUseCase;
@@ -87,17 +89,19 @@ public class WeatherViewModel extends ViewModel {
         this.dateFormatter = dateFormatter;
         this.stringFormatter = stringFormatter;
         this.resourcesProvider = resourcesProvider;
-        this.errorMessageHolder = errorMessageHolder;
+        this.errorMessageContainer = errorMessageHolder;
         this.locationCoordinatesContainer = locationCoordinatesContainer;
     }
 
     public void getWeather() {
-        Coordinates coordinates = getLocationCoordinatesContainer().getCoordinates().getValue();
+        if (!isWeatherInitiallyRequested) isWeatherInitiallyRequested = true;
+        Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         if (coordinates == null) return;
         compositeDisposable.clear();
         refreshWeatherUseCase
                 .execute(coordinates.getLatitude(), coordinates.getLongitude())
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Hourly>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable disposable) {
@@ -114,10 +118,11 @@ public class WeatherViewModel extends ViewModel {
                     public void onError(@NonNull Throwable throwable) {
                         isLoading.postValue(false);
                         if (throwable instanceof IOException) {
-                            onErrorMessage(resourcesProvider.getString(R.string.no_internet_connection_error));
+                            errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.no_internet_connection_error));
                         } else {
-                            onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
+                            errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
                         }
+                        throwable.printStackTrace();
                     }
                 });
     }

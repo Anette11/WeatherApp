@@ -92,35 +92,37 @@ public class WeatherViewModel extends ViewModel {
     public void getWeather() {
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         if (coordinates == null) return;
-        if (!isWeatherInitiallyRequested) isWeatherInitiallyRequested = true;
-        compositeDisposable.clear();
-        refreshWeatherUseCase
-                .execute(coordinates.getLatitude(), coordinates.getLongitude())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Hourly>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable disposable) {
-                        compositeDisposable.add(disposable);
-                        isLoading.postValue(true);
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull Hourly hourly) {
-                        isLoading.postValue(false);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable throwable) {
-                        isLoading.postValue(false);
-                        if (throwable instanceof IOException) {
-                            errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.no_internet_connection_error));
-                        } else {
-                            errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
+        if (!isWeatherInitiallyRequested) {
+            isWeatherInitiallyRequested = true;
+            compositeDisposable.clear();
+            refreshWeatherUseCase
+                    .execute(coordinates.getLatitude(), coordinates.getLongitude())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<Hourly>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable disposable) {
+                            compositeDisposable.add(disposable);
+                            isLoading.postValue(true);
                         }
-                        throwable.printStackTrace();
-                    }
-                });
+
+                        @Override
+                        public void onSuccess(@NonNull Hourly hourly) {
+                            isLoading.postValue(false);
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable throwable) {
+                            isLoading.postValue(false);
+                            if (throwable instanceof IOException) {
+                                errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.no_internet_connection_error));
+                            } else {
+                                errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
+                            }
+                            throwable.printStackTrace();
+                        }
+                    });
+        }
     }
 
     public void createWeatherItems(

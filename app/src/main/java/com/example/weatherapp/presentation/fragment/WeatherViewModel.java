@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -105,8 +106,8 @@ public class WeatherViewModel extends ViewModel {
                 .subscribe(new SingleObserver<Hourly>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable disposable) {
-                        compositeDisposable.add(disposable);
                         isLoading.postValue(true);
+                        compositeDisposable.add(disposable);
                     }
 
                     @Override
@@ -122,7 +123,31 @@ public class WeatherViewModel extends ViewModel {
                         } else {
                             errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
                         }
-                        throwable.printStackTrace();
+                    }
+                });
+    }
+
+    public void fillScreenItems(
+            Hourly hourly
+    ) {
+        Single.fromCallable(() -> {
+                    createWeatherItems(hourly);
+                    return hourly;
+                })
+                .subscribeOn(Schedulers.computation())
+                .subscribe(new SingleObserver<Hourly>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable disposable) {
+                        compositeDisposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull Hourly hourly) {
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        errorMessageContainer.onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
                     }
                 });
     }

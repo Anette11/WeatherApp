@@ -100,7 +100,7 @@ public class WeatherFragment extends Fragment {
 
         viewModel.getWeatherFromDb().observe(
                 getViewLifecycleOwner(),
-                viewModel::createWeatherItems
+                viewModel::fillScreenItems
         );
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {

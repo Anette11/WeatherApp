@@ -3,6 +3,8 @@ package com.example.weatherapp.presentation.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.annotation.StringRes;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
@@ -17,6 +19,10 @@ public class ToastProvider {
     }
 
     public void showToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToast(@StringRes int message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

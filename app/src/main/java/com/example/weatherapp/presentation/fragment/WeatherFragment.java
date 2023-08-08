@@ -67,7 +67,7 @@ public class WeatherFragment extends Fragment {
                 .getPublishSubject()
                 .subscribe(
                         errorMessage -> toastProvider.showToast(errorMessage),
-                        error -> toastProvider.showToast(getString(R.string.error_occurred))
+                        error -> toastProvider.showToast(R.string.error_occurred)
                 );
         compositeDisposable.add(disposableErrorMessage);
 

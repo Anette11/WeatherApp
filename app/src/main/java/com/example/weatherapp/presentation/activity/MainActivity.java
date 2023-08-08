@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             if (areLocationPermissionsGranted()) {
                 getLocation();
             } else {
-                toastProvider.showToast(getString(R.string.location_permissions_are_not_granted));
+                toastProvider.showToast(R.string.location_permissions_are_not_granted);
                 finish();
             }
         }
@@ -159,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
                     locationCoordinatesContainer.updateCoordinates(new Coordinates(latitude, longitude, cityName));
                 }
             } catch (IOException e) {
-                toastProvider.showToast(getString(R.string.exception_in_retrieving_city_name));
+                toastProvider.showToast(R.string.exception_in_retrieving_city_name);
             }
         } else {
-            toastProvider.showToast(getString(R.string.location_is_not_known));
+            toastProvider.showToast(R.string.location_is_not_known);
         }
     }
 }

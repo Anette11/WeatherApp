@@ -20,16 +20,16 @@
             android:padding="@dimen/_8dp">
 
             <TextView
-                android:id="@+id/text_view_time"
-                style="@style/Text.Large"
+                android:id="@+id/text_view_description"
+                style="@style/Text.Medium"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8dp"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_view"
+                app:layout_constraintStart_toEndOf="@id/image_view"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="12:00" />
+                tools:text="Clear sky" />
 
             <TextView
                 android:id="@+id/text_view_city_name"
@@ -56,18 +56,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/cloud_lightning_icon" />
 
-            <TextView
-                android:id="@+id/text_view_description"
-                style="@style/Text.Medium"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8dp"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_view"
-                tools:text="Clear sky" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_icons"
                 android:layout_width="@dimen/_0dp"
@@ -75,7 +63,7 @@
                 android:layout_marginTop="@dimen/_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_description">
+                app:layout_constraintTop_toBottomOf="@id/image_view">
 
                 <ImageView
                     android:id="@+id/image_view_temperature"

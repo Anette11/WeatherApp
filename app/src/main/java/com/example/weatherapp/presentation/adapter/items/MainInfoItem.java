@@ -11,7 +11,6 @@ public class MainInfoItem implements WeatherItem {
     private final String windSpeed;
     private final String humidity;
     private final String description;
-    private final String time;
     private final double latitude;
     private final double longitude;
 
@@ -22,7 +21,6 @@ public class MainInfoItem implements WeatherItem {
             String windSpeed,
             String humidity,
             String description,
-            String time,
             double latitude,
             double longitude
     ) {
@@ -32,7 +30,6 @@ public class MainInfoItem implements WeatherItem {
         this.windSpeed = windSpeed;
         this.humidity = humidity;
         this.description = description;
-        this.time = time;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -59,10 +56,6 @@ public class MainInfoItem implements WeatherItem {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getTime() {
-        return time;
     }
 
     public double getLatitude() {

@@ -179,7 +179,6 @@ public class WeatherViewModel extends ViewModel {
                                     stringFormatter.formatToWindSpeed(windSpeed.get(i)),
                                     stringFormatter.formatToHumidity(humidity.get(i)),
                                     weatherType.description,
-                                    dateFormatter.convertDateFormatInShortText(time.get(i)),
                                     coordinates.getLatitude(),
                                     coordinates.getLongitude()
                             )

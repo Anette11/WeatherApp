@@ -50,10 +50,6 @@ public class WeatherViewModel extends ViewModel {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private boolean isWeatherInitiallyRequested = false;
 
-    public boolean isWeatherInitiallyRequested() {
-        return isWeatherInitiallyRequested;
-    }
-
     public LiveData<List<WeatherItem>> getWeatherItems() {
         return weatherItems;
     }
@@ -94,9 +90,9 @@ public class WeatherViewModel extends ViewModel {
     }
 
     public void getWeather() {
-        if (!isWeatherInitiallyRequested) isWeatherInitiallyRequested = true;
         Coordinates coordinates = locationCoordinatesContainer.getCoordinates().getValue();
         if (coordinates == null) return;
+        if (!isWeatherInitiallyRequested) isWeatherInitiallyRequested = true;
         compositeDisposable.clear();
         refreshWeatherUseCase
                 .execute(coordinates.getLatitude(), coordinates.getLongitude())

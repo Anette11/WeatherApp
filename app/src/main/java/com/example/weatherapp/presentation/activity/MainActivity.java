@@ -61,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
         else showDialog();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (areLocationPermissionsGranted() &&
+                locationCoordinatesContainer.getCoordinates().getValue() == null
+        ) {
+            getLocation();
+        }
+    }
+
     private void showDialog() {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) return;
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||

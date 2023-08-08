@@ -17,6 +17,7 @@ import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.presentation.adapter.WeatherAdapter;
 import com.example.weatherapp.presentation.adapter.items.MainInfoItem;
+import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.ToastProvider;
 
 import java.util.Locale;
@@ -37,6 +38,9 @@ public class WeatherFragment extends Fragment {
 
     @Inject
     ToastProvider toastProvider;
+
+    @Inject
+    LocationCoordinatesContainer locationCoordinatesContainer;
 
     @Nullable
     @Override
@@ -78,7 +82,9 @@ public class WeatherFragment extends Fragment {
 
         setRecyclerView();
 
-        if (!viewModel.isWeatherInitiallyRequested()) viewModel.getWeather();
+        locationCoordinatesContainer.getCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
+            if (coordinates != null) viewModel.getWeather();
+        });
 
         viewModel.getWeatherItems().observe(
                 getViewLifecycleOwner(),

@@ -21,6 +21,7 @@ import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.ResourcesProvider;
 import com.example.weatherapp.presentation.utils.StringFormatter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,22 +98,26 @@ public class WeatherViewModel extends ViewModel {
         refreshWeatherUseCase
                 .execute(coordinates.getLatitude(), coordinates.getLongitude())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new SingleObserver<Object>() {
+                .subscribe(new SingleObserver<Hourly>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        compositeDisposable.add(d);
+                    public void onSubscribe(@NonNull Disposable disposable) {
+                        compositeDisposable.add(disposable);
                         isLoading.postValue(true);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull Object o) {
+                    public void onSuccess(@NonNull Hourly hourly) {
                         isLoading.postValue(false);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(@NonNull Throwable throwable) {
                         isLoading.postValue(false);
-                        onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
+                        if (throwable instanceof IOException) {
+                            onErrorMessage(resourcesProvider.getString(R.string.no_internet_connection_error));
+                        } else {
+                            onErrorMessage(resourcesProvider.getString(R.string.error_occurred));
+                        }
                     }
                 });
     }

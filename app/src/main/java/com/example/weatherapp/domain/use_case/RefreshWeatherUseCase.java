@@ -34,7 +34,7 @@ public class RefreshWeatherUseCase {
                 .flatMap(weather -> Single.just(weather.getHourly()))
                 .flatMap(hourly -> {
                     repository.refreshWeather(LocalMappers.fromHourlyToHourlyDbo(hourly));
-                    return null;
+                    return Single.just(hourly);
                 });
     }
 }

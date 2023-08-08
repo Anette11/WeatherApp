@@ -2,7 +2,4 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-
-    <color name="color_icons_light_mode">@color/black</color>
-    <color name="color_icons_night_mode">@color/white</color>
 </resources>

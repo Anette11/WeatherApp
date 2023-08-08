@@ -3,13 +3,16 @@ package com.example.weatherapp.presentation.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -19,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.ActivityMainBinding;
+import com.example.weatherapp.presentation.dialog.AlertDialogCreator;
 import com.example.weatherapp.presentation.utils.Coordinates;
 import com.example.weatherapp.presentation.utils.LocationCoordinatesContainer;
 import com.example.weatherapp.presentation.utils.ToastProvider;
@@ -53,13 +57,41 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        if (areLocationPermissionsGranted()) {
-            getLocation();
+        if (areLocationPermissionsGranted()) getLocation();
+        else showDialog();
+    }
+
+    private void showDialog() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) return;
+        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            new AlertDialogCreator(
+                    this,
+                    getString(R.string.dialog_location_permissions_title),
+                    getString(R.string.dialog_location_permissions_message_open_settings),
+                    getString(R.string.dialog_location_permissions_positive_button_text_open_settings),
+                    getString(R.string.dialog_location_permissions_negative_button_text),
+                    this::openAppSettingsIntent,
+                    this::finish
+            ).createAlertDialog().show();
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestLocationPermissions();
-            }
+            new AlertDialogCreator(
+                    this,
+                    getString(R.string.dialog_location_permissions_title),
+                    getString(R.string.dialog_location_permissions_message_continue),
+                    getString(R.string.dialog_location_permissions_positive_button_text_continue),
+                    getString(R.string.dialog_location_permissions_negative_button_text),
+                    this::requestLocationPermissions,
+                    this::finish
+            ).createAlertDialog().show();
         }
+    }
+
+    private void openAppSettingsIntent() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     @Override
@@ -74,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 getLocation();
             } else {
                 toastProvider.showToast(getString(R.string.location_permissions_are_not_granted));
+                finish();
             }
         }
     }

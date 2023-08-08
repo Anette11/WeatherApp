@@ -14,7 +14,7 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
         if (newWeatherItems == null) return;
         weatherItems.clear();
         weatherItems.addAll(newWeatherItems);
-        notifyDataSetChanged();
+        notifyItemRangeChanged(0, newWeatherItems.size());
     }
 
     public WeatherAdapter(

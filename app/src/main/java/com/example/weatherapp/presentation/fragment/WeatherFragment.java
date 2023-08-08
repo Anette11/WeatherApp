@@ -83,7 +83,9 @@ public class WeatherFragment extends Fragment {
         setRecyclerView();
 
         locationCoordinatesContainer.getCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
-            if (coordinates != null) viewModel.getWeather();
+            if (coordinates != null && !viewModel.isWeatherInitiallyRequested()) {
+                viewModel.getWeather();
+            }
         });
 
         viewModel.getWeatherItems().observe(

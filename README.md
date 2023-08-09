@@ -1,5 +1,5 @@
 # WeatherApp
-In project are used: MVVM, Navigation component, Retrofit, RxJava3, OkHttp interceptor, Room, Hilt, Timber, Gson, Swiperefreshlayout, AdapterDelegates.
+In project are used: MVVM, Navigation component, Retrofit, RxJava3, OkHttp interceptor, Room, Hilt, Timber, Gson, Swiperefreshlayout, AdapterDelegates, LiveData.
 
 No api key required. Api [Open-Meteo](https://open-meteo.com/).
 

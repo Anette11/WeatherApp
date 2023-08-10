@@ -16,9 +16,9 @@ public class GetWeatherFromDbUseCase {
     }
 
     public LiveData<Hourly> execute() {
-        return Transformations.map(repository.getWeather(), hourlyDbo -> {
-            if (hourlyDbo != null) return LocalMappers.fromHourlyDboToHourly(hourlyDbo);
-            return null;
-        });
+        return Transformations.map(
+                repository.getWeather(),
+                hourlyDbo -> hourlyDbo == null ? null : LocalMappers.fromHourlyDboToHourly(hourlyDbo)
+        );
     }
 }

@@ -147,21 +147,26 @@ public class MainActivity extends AppCompatActivity {
     private void getLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            try {
-                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                if (addresses != null) {
-                    String cityName = addresses.get(0).getLocality();
-                    locationCoordinatesContainer.updateCoordinates(new Coordinates(latitude, longitude, cityName));
-                }
-            } catch (IOException e) {
-                toastProvider.showToast(R.string.exception_in_retrieving_city_name);
-            }
-        } else {
+        if (location == null) {
             toastProvider.showToast(R.string.location_is_not_known);
+            return;
+        }
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(
+                    location.getLatitude(),
+                    location.getLongitude(),
+                    1
+            );
+            if (addresses == null || addresses.isEmpty()) return;
+            locationCoordinatesContainer.updateCoordinates(
+                    new Coordinates(
+                            location.getLatitude(),
+                            location.getLongitude(),
+                            addresses.get(0).getLocality()
+                    ));
+        } catch (IOException e) {
+            toastProvider.showToast(R.string.exception_in_retrieving_city_name);
         }
     }
 }

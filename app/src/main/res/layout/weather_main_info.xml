@@ -72,6 +72,7 @@
                     android:contentDescription="@string/icon_temperature_content_description"
                     android:src="@drawable/temperature_heat_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/image_view_wind_speed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +83,7 @@
                     android:contentDescription="@string/icon_wind_speed_content_description"
                     android:src="@drawable/wind_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/image_view_humidity"
+                    app:layout_constraintEnd_toStartOf="@+id/image_view_humidity"
                     app:layout_constraintStart_toEndOf="@+id/image_view_temperature"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,6 +95,7 @@
                     android:src="@drawable/drop_humidity_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_wind_speed"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

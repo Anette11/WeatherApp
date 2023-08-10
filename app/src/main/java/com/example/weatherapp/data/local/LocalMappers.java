@@ -9,7 +9,6 @@ public class LocalMappers {
             Hourly hourly
     ) {
         return new HourlyDbo(
-                0,
                 hourly.getHumidity(),
                 hourly.getTemperature(),
                 hourly.getTime(),

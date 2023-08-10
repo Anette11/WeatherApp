@@ -1,10 +1,7 @@
 package com.example.weatherapp.data.local.dbo;
 
-import androidx.room.Entity;
-
 import java.util.List;
 
-@Entity(tableName = "table_hourly")
 public class HourlyDbo {
 
     private final List<Integer> humidity;

@@ -6,6 +6,7 @@ import androidx.room.Room;
 
 import com.example.weatherapp.data.local.WeatherDao;
 import com.example.weatherapp.data.local.WeatherDatabase;
+import com.example.weatherapp.data.local.WeatherDbHelper;
 
 import javax.inject.Singleton;
 
@@ -18,6 +19,14 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class DatabaseModule {
+
+    @Provides
+    @Singleton
+    WeatherDbHelper provideWeatherDbHelper(
+            @ApplicationContext Context context
+    ) {
+        return new WeatherDbHelper(context);
+    }
 
     @Provides
     @Singleton

@@ -32,7 +32,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + WeatherDatabaseContract.HourlyEntry.TABLE_NAME + " (" +
-                    WeatherDatabaseContract.HourlyEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
+                    WeatherDatabaseContract.HourlyEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     WeatherDatabaseContract.HourlyEntry.COLUMN_NAME_HUMIDITY + " TEXT," +
                     WeatherDatabaseContract.HourlyEntry.COLUMN_NAME_TEMPERATURE + " TEXT," +
                     WeatherDatabaseContract.HourlyEntry.COLUMN_NAME_TIME + " TEXT," +

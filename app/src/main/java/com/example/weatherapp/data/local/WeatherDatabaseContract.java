@@ -9,7 +9,6 @@ public final class WeatherDatabaseContract {
 
     public static class HourlyEntry implements BaseColumns {
         public static final String TABLE_NAME = "table_hourly";
-        public static final String COLUMN_NAME_ID = "id";
         public static final String COLUMN_NAME_HUMIDITY = "humidity";
         public static final String COLUMN_NAME_TEMPERATURE = "temperature";
         public static final String COLUMN_NAME_TIME = "time";

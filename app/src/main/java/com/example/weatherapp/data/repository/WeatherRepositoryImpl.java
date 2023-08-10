@@ -2,7 +2,7 @@ package com.example.weatherapp.data.repository;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.weatherapp.data.local.WeatherDao;
+import com.example.weatherapp.data.local.WeatherDbManager;
 import com.example.weatherapp.data.local.dbo.HourlyDbo;
 import com.example.weatherapp.data.remote.WeatherApi;
 import com.example.weatherapp.data.remote.dto.WeatherDto;
@@ -15,15 +15,15 @@ import io.reactivex.rxjava3.core.Single;
 public class WeatherRepositoryImpl implements WeatherRepository {
 
     private final WeatherApi weatherApi;
-    private final WeatherDao weatherDao;
+    private final WeatherDbManager weatherDbManager;
 
     @Inject
     public WeatherRepositoryImpl(
             WeatherApi weatherApi,
-            WeatherDao weatherDao
+            WeatherDbManager weatherDbManager
     ) {
         this.weatherApi = weatherApi;
-        this.weatherDao = weatherDao;
+        this.weatherDbManager = weatherDbManager;
     }
 
     @Override
@@ -37,12 +37,12 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
     @Override
     public void refreshWeather(HourlyDbo hourlyDbo) {
-        weatherDao.deleteAll();
-        weatherDao.save(hourlyDbo);
+        weatherDbManager.deleteAllHourly();
+        weatherDbManager.saveHourly(hourlyDbo);
     }
 
     @Override
     public LiveData<HourlyDbo> getWeather() {
-        return weatherDao.get();
+        return weatherDbManager.getHourly();
     }
 }

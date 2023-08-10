@@ -2,11 +2,8 @@ package com.example.weatherapp.di;
 
 import android.content.Context;
 
-import androidx.room.Room;
-
-import com.example.weatherapp.data.local.WeatherDao;
-import com.example.weatherapp.data.local.WeatherDatabase;
 import com.example.weatherapp.data.local.WeatherDbHelper;
+import com.example.weatherapp.data.local.WeatherDbManager;
 
 import javax.inject.Singleton;
 
@@ -22,28 +19,13 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    WeatherDbHelper provideWeatherDbHelper(
-            @ApplicationContext Context context
-    ) {
+    WeatherDbHelper provideWeatherDbHelper(@ApplicationContext Context context) {
         return new WeatherDbHelper(context);
     }
 
     @Provides
     @Singleton
-    WeatherDatabase provideWeatherDatabase(
-            @ApplicationContext Context context
-    ) {
-        return Room.databaseBuilder(
-                        context,
-                        WeatherDatabase.class,
-                        "weather_db"
-                )
-                .build();
-    }
-
-    @Provides
-    @Singleton
-    WeatherDao provideWeatherDao(WeatherDatabase weatherDatabase) {
-        return weatherDatabase.weatherDao();
+    WeatherDbManager provideWeatherDbManager(WeatherDbHelper weatherDbHelper) {
+        return new WeatherDbManager(weatherDbHelper);
     }
 }

@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -103,7 +104,7 @@ public class WeatherViewModel extends ViewModel {
                 .execute(coordinates.getLatitude(), coordinates.getLongitude())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Hourly>() {
+                .subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(@NonNull Disposable disposable) {
                         isLoading.postValue(true);
@@ -111,7 +112,7 @@ public class WeatherViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onSuccess(@NonNull Hourly hourly) {
+                    public void onComplete() {
                         isLoading.postValue(false);
                     }
 

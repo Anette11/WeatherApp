@@ -53,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        if (areLocationPermissionsGranted()) getLocation();
-        else showDialog();
+        if (areLocationPermissionsGranted()) {
+            getLocation();
+        } else {
+            showDialog();
+        }
     }
 
     @Override

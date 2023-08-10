@@ -30,9 +30,8 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.CompletableObserver;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -131,19 +130,19 @@ public class WeatherViewModel extends ViewModel {
     public void fillScreenItems(
             Hourly hourly
     ) {
-        Single.fromCallable(() -> {
+        Completable.fromCallable(() -> {
                     createWeatherItems(hourly);
                     return hourly;
                 })
                 .subscribeOn(Schedulers.computation())
-                .subscribe(new SingleObserver<Hourly>() {
+                .subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(@NonNull Disposable disposable) {
                         compositeDisposable.add(disposable);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull Hourly hourly) {
+                    public void onComplete() {
                     }
 
                     @Override

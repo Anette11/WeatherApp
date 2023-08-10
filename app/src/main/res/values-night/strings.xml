@@ -8,6 +8,13 @@
     <string name="dialog_location_permissions_positive_button_text_open_settings">Open settings</string>
     <string name="dialog_location_permissions_title">Location permissions required</string>
     <string name="error_occurred">Error occurred</string>
+    <string name="example_text_weather_city_name">City name</string>
+    <string name="example_text_weather_date">Today</string>
+    <string name="example_text_weather_description">Clear sky</string>
+    <string name="example_text_weather_humidity">86 %</string>
+    <string name="example_text_weather_temperature">30 \u2103</string>
+    <string name="example_text_weather_time">12:00</string>
+    <string name="example_text_weather_wind_speed">17.6 km/h</string>
     <string name="exception_in_parse_date">Exception in parse date</string>
     <string name="exception_in_retrieving_city_name">Exception in retrieving city name</string>
     <string name="exception_in_show_location_in_map">Exception in show location in map</string>

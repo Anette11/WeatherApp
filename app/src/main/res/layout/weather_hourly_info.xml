@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="12:00" />
+            tools:text="@string/example_text_weather_time" />
 
         <ImageView
             android:id="@+id/image_view"
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_view"
-            tools:text="Clear sky" />
+            tools:text="@string/example_text_weather_description" />
 
         <ImageView
             android:id="@+id/image_view_temperature"
@@ -71,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_view_temperature"
             app:layout_constraintTop_toTopOf="@id/image_view_temperature"
-            tools:text="30 \u2103" />
+            tools:text="@string/example_text_weather_temperature" />
 
         <ImageView
             android:id="@+id/image_view_wind_speed"
@@ -94,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_view_wind_speed"
             app:layout_constraintTop_toTopOf="@id/image_view_wind_speed"
-            tools:text="17.6 km/h" />
+            tools:text="@string/example_text_weather_wind_speed" />
 
         <ImageView
             android:id="@+id/image_view_humidity"
@@ -117,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_view_humidity"
             app:layout_constraintTop_toTopOf="@id/image_view_humidity"
-            tools:text="86 %" />
+            tools:text="@string/example_text_weather_humidity" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

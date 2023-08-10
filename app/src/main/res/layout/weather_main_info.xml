@@ -29,7 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_view"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Clear sky" />
+                tools:text="@string/example_text_weather_description" />
 
             <TextView
                 android:id="@+id/text_view_city_name"
@@ -43,7 +43,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/image_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="City name" />
+                tools:text="@string/example_text_weather_city_name" />
 
             <ImageView
                 android:id="@+id/image_view"
@@ -117,7 +117,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/text_view_wind_speed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="30 \u2103" />
+                    tools:text="@string/example_text_weather_temperature" />
 
                 <TextView
                     android:id="@+id/text_view_wind_speed"
@@ -129,7 +129,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/text_view_humidity"
                     app:layout_constraintStart_toEndOf="@+id/text_view_temperature"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="17.6 km/h" />
+                    tools:text="@string/example_text_weather_wind_speed" />
 
                 <TextView
                     android:id="@+id/text_view_humidity"
@@ -141,7 +141,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_view_wind_speed"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="86 %" />
+                    tools:text="@string/example_text_weather_humidity" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

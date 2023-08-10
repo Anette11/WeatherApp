@@ -59,18 +59,66 @@ public class WeatherFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         super.onViewCreated(view, savedInstanceState);
-
         viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+        observeErrorMessages();
+        observeCoordinates();
+        observeWeatherItems();
+        observeLoadingStatus();
+        observeWeatherFromDb();
+        setOnRefreshListener();
+        setRecyclerView();
+    }
 
-        Disposable disposableErrorMessage = viewModel
-                .getErrorMessageContainer()
+    private void observeErrorMessages() {
+        Disposable disposable = viewModel.getErrorMessageContainer()
                 .getPublishSubject()
                 .subscribe(
                         errorMessage -> toastProvider.showToast(errorMessage),
                         error -> viewModel.onErrorMessage(getString(R.string.error_occurred))
                 );
-        compositeDisposable.add(disposableErrorMessage);
+        compositeDisposable.add(disposable);
+    }
 
+    private void observeCoordinates() {
+        locationCoordinatesContainer.getCoordinates().observe(
+                getViewLifecycleOwner(),
+                coordinates -> {
+                    if (coordinates != null && !viewModel.isWeatherInitiallyRequested()) {
+                        viewModel.getWeather();
+                    }
+                });
+    }
+
+    private void observeWeatherItems() {
+        viewModel.getWeatherItems().observe(
+                getViewLifecycleOwner(),
+                weatherItems -> {
+                    if (weatherItems != null) weatherAdapter.updateWeatherItems(weatherItems);
+                });
+    }
+
+    private void observeLoadingStatus() {
+        viewModel.getIsLoading().observe(
+                getViewLifecycleOwner(),
+                isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
+        );
+    }
+
+    private void observeWeatherFromDb() {
+        viewModel.getWeatherFromDb().observe(
+                getViewLifecycleOwner(),
+                viewModel::fillScreenItems
+        );
+    }
+
+    private void setOnRefreshListener() {
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            viewModel.getWeather();
+            binding.swipeRefreshLayout.setRefreshing(false);
+        });
+    }
+
+    private void setRecyclerView() {
         weatherAdapter = new WeatherAdapter(weatherItem -> {
             if (weatherItem instanceof MainInfoItem) {
                 onLocationClick(
@@ -79,39 +127,6 @@ public class WeatherFragment extends Fragment {
                 );
             }
         });
-
-        setRecyclerView();
-
-        locationCoordinatesContainer.getCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
-            if (coordinates != null && !viewModel.isWeatherInitiallyRequested()) {
-                viewModel.getWeather();
-            }
-        });
-
-        viewModel.getWeatherItems().observe(
-                getViewLifecycleOwner(),
-                weatherItems -> {
-                    if (weatherItems != null) weatherAdapter.updateWeatherItems(weatherItems);
-                }
-        );
-
-        viewModel.getIsLoading().observe(
-                getViewLifecycleOwner(),
-                isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
-        );
-
-        viewModel.getWeatherFromDb().observe(
-                getViewLifecycleOwner(),
-                viewModel::fillScreenItems
-        );
-
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            viewModel.getWeather();
-            binding.swipeRefreshLayout.setRefreshing(false);
-        });
-    }
-
-    private void setRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(weatherAdapter);

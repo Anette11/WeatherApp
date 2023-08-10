@@ -1,5 +1,5 @@
 package com.example.weatherapp.presentation.adapter.items;
 
-public interface WeatherItem {
+public abstract class WeatherItem implements Comparable<WeatherItem> {
 
 }

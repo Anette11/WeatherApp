@@ -2,7 +2,7 @@ package com.example.weatherapp.presentation.adapter.items;
 
 import androidx.annotation.DrawableRes;
 
-public class HourlyInfoItem implements WeatherItem {
+public class HourlyInfoItem extends WeatherItem {
 
     private final String time;
     @DrawableRes
@@ -50,5 +50,10 @@ public class HourlyInfoItem implements WeatherItem {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public int compareTo(WeatherItem weatherItem) {
+        return ((HourlyInfoItem) weatherItem).time.compareTo(this.time);
     }
 }

@@ -2,7 +2,7 @@ package com.example.weatherapp.presentation.adapter.items;
 
 import androidx.annotation.DrawableRes;
 
-public class MainInfoItem implements WeatherItem {
+public class MainInfoItem extends WeatherItem {
 
     private final String cityName;
     @DrawableRes
@@ -64,5 +64,10 @@ public class MainInfoItem implements WeatherItem {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    @Override
+    public int compareTo(WeatherItem weatherItem) {
+        return ((MainInfoItem) weatherItem).cityName.compareTo(this.cityName);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.weatherapp.presentation.adapter.items;
 
-public class TextItem implements WeatherItem {
+public class TextItem extends WeatherItem {
 
     private final String text;
 
@@ -10,5 +10,10 @@ public class TextItem implements WeatherItem {
 
     public String getText() {
         return text;
+    }
+
+    @Override
+    public int compareTo(WeatherItem weatherItem) {
+        return (((TextItem) weatherItem).text.compareTo(this.text));
     }
 }

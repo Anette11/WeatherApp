@@ -1,5 +1,7 @@
 package com.example.weatherapp.presentation.adapter;
 
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.example.weatherapp.presentation.adapter.items.WeatherItem;
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter;
 
@@ -10,11 +12,12 @@ public class WeatherAdapter extends ListDelegationAdapter<List<WeatherItem>> {
 
     private final List<WeatherItem> weatherItems = new ArrayList<>();
 
-    public void updateWeatherItems(List<WeatherItem> newWeatherItems) {
-        if (newWeatherItems == null) return;
+    public void updateWeatherItems(List<WeatherItem> weatherItemsNew) {
+        DiffUtil.DiffResult diffResult = DiffUtil
+                .calculateDiff(new WeatherDiffUtilCallBack(weatherItems, weatherItemsNew));
+        diffResult.dispatchUpdatesTo(this);
         weatherItems.clear();
-        weatherItems.addAll(newWeatherItems);
-        notifyItemRangeChanged(0, newWeatherItems.size());
+        weatherItems.addAll(weatherItemsNew);
     }
 
     public WeatherAdapter(

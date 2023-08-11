@@ -3,7 +3,7 @@ package com.example.weatherapp.utils.formatters;
 import android.text.format.DateUtils;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.utils.resourses.ResourcesProvider;
+import com.example.weatherapp.utils.resourses.interfaces.ResourcesProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

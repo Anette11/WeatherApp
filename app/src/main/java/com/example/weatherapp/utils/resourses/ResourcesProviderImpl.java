@@ -2,6 +2,8 @@ package com.example.weatherapp.utils.resourses;
 
 import android.content.Context;
 
+import com.example.weatherapp.utils.resourses.interfaces.ResourcesProvider;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;

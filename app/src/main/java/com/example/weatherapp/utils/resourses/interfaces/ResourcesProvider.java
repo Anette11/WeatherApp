@@ -1,4 +1,4 @@
-package com.example.weatherapp.utils.resourses;
+package com.example.weatherapp.utils.resourses.interfaces;
 
 import androidx.annotation.StringRes;
 

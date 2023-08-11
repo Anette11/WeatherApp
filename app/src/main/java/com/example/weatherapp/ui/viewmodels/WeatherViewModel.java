@@ -18,7 +18,7 @@ import com.example.weatherapp.utils.Coordinates;
 import com.example.weatherapp.utils.formatters.DateFormatter;
 import com.example.weatherapp.utils.ErrorMessageContainer;
 import com.example.weatherapp.utils.LocationCoordinatesContainer;
-import com.example.weatherapp.utils.resourses.ResourcesProvider;
+import com.example.weatherapp.utils.resourses.interfaces.ResourcesProvider;
 import com.example.weatherapp.utils.formatters.StringFormatter;
 
 import java.io.IOException;

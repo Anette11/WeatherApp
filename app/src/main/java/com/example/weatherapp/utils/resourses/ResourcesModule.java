@@ -1,5 +1,7 @@
 package com.example.weatherapp.utils.resourses;
 
+import com.example.weatherapp.utils.resourses.interfaces.ResourcesProvider;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.hilt.InstallIn;

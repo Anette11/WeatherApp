@@ -95,7 +95,6 @@ public class WeatherDbManager {
     public void refreshWeather(HourlyDbo hourlyDbo) {
         deleteAllHourly();
         saveHourly(hourlyDbo);
-        HourlyDbo hourlyDboFromDb = getHourly();
-        hourlyLiveData.postValue(hourlyDboFromDb);
+        hourlyLiveData.postValue(getHourly());
     }
 }

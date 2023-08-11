@@ -86,7 +86,7 @@ public class WeatherDbManager {
         return new HourlyDbo(humidity, temperature, time, weatherCode, windSpeed);
     }
 
-    private void deleteAllHourly(
+    private void clearHourly(
             SQLiteDatabase sqLiteDatabase
     ) {
         String sql = "DELETE FROM " + WeatherDatabaseContract.HourlyEntry.TABLE_NAME;
@@ -99,7 +99,7 @@ public class WeatherDbManager {
         SQLiteDatabase sqLiteDatabase = weatherDbHelper.getWritableDatabase();
         sqLiteDatabase.beginTransaction();
         try {
-            deleteAllHourly(sqLiteDatabase);
+            clearHourly(sqLiteDatabase);
             saveHourly(hourlyDbo, sqLiteDatabase);
             sqLiteDatabase.setTransactionSuccessful();
         } finally {

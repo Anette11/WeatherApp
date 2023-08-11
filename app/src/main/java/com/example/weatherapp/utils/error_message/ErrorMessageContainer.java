@@ -1,4 +1,4 @@
-package com.example.weatherapp.utils;
+package com.example.weatherapp.utils.error_message;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
 

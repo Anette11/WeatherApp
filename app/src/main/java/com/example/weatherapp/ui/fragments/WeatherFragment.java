@@ -19,7 +19,7 @@ import com.example.weatherapp.ui.adapters.WeatherAdapter;
 import com.example.weatherapp.ui.adapters.adapter_items.MainInfoItem;
 import com.example.weatherapp.ui.viewmodels.WeatherViewModel;
 import com.example.weatherapp.utils.coordinates.LocationCoordinatesContainer;
-import com.example.weatherapp.ui.utils.ToastProvider;
+import com.example.weatherapp.ui.toast.ToastProvider;
 
 import java.util.Locale;
 

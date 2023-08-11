@@ -1,18 +1,12 @@
 package com.example.weatherapp.models;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class Hourly {
-    @SerializedName("relativehumidity_2m")
     private final List<Integer> humidity;
-    @SerializedName("temperature_2m")
     private final List<Double> temperature;
     private final List<String> time;
-    @SerializedName("weathercode")
     private final List<Integer> weatherCode;
-    @SerializedName("windspeed_10m")
     private final List<Double> windSpeed;
 
     public Hourly(

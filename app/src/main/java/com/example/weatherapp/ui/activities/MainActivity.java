@@ -23,8 +23,8 @@ import androidx.core.app.ActivityCompat;
 import com.example.weatherapp.R;
 import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.ui.alert_dialog.AlertDialogCreator;
-import com.example.weatherapp.utils.coordinates.Coordinates;
-import com.example.weatherapp.utils.coordinates.LocationCoordinatesContainer;
+import com.example.weatherapp.models.coordinates.Coordinates;
+import com.example.weatherapp.models.coordinates.LocationCoordinatesContainer;
 import com.example.weatherapp.ui.toast.ToastProvider;
 
 import java.io.IOException;

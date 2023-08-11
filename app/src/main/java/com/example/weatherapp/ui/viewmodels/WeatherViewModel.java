@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.utils.WeatherType;
-import com.example.weatherapp.models.Hourly;
+import com.example.weatherapp.models.weather.WeatherType;
+import com.example.weatherapp.models.weather.Hourly;
 import com.example.weatherapp.use_cases.GetWeatherFromDbUseCase;
 import com.example.weatherapp.use_cases.RefreshWeatherUseCase;
 import com.example.weatherapp.ui.adapters.adapter_items.HourlyInfoEveryDayItem;
@@ -14,10 +14,10 @@ import com.example.weatherapp.ui.adapters.adapter_items.HourlyInfoItem;
 import com.example.weatherapp.ui.adapters.adapter_items.MainInfoItem;
 import com.example.weatherapp.ui.adapters.adapter_items.TextItem;
 import com.example.weatherapp.ui.adapters.adapter_items.WeatherItem;
-import com.example.weatherapp.utils.coordinates.Coordinates;
+import com.example.weatherapp.models.coordinates.Coordinates;
 import com.example.weatherapp.utils.formatters.DateFormatter;
-import com.example.weatherapp.utils.error_message.ErrorMessageContainer;
-import com.example.weatherapp.utils.coordinates.LocationCoordinatesContainer;
+import com.example.weatherapp.models.error_message.ErrorMessageContainer;
+import com.example.weatherapp.models.coordinates.LocationCoordinatesContainer;
 import com.example.weatherapp.utils.resourses.interfaces.ResourcesProvider;
 import com.example.weatherapp.utils.formatters.StringFormatter;
 

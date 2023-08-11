@@ -1,7 +1,7 @@
 package com.example.weatherapp.database;
 
 import com.example.weatherapp.database.models.HourlyDbo;
-import com.example.weatherapp.models.Hourly;
+import com.example.weatherapp.models.weather.Hourly;
 
 public class DatabaseModelsMappers {
 

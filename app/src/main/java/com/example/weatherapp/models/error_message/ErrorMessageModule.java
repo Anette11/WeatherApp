@@ -1,4 +1,4 @@
-package com.example.weatherapp.utils.error_message;
+package com.example.weatherapp.models.error_message;
 
 import dagger.Module;
 import dagger.Provides;

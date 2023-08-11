@@ -2,8 +2,8 @@ package com.example.weatherapp.api;
 
 import com.example.weatherapp.api.models.HourlyDto;
 import com.example.weatherapp.api.models.WeatherDto;
-import com.example.weatherapp.models.Hourly;
-import com.example.weatherapp.models.Weather;
+import com.example.weatherapp.models.weather.Hourly;
+import com.example.weatherapp.models.weather.Weather;
 
 public class ApiModelsMappers {
 

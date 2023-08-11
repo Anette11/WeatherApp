@@ -35,7 +35,10 @@ public class WeatherDbManager {
         this.weatherDbHelper = weatherDbHelper;
     }
 
-    private void saveHourly(HourlyDbo hourlyDbo) {
+    private void saveHourly(
+            HourlyDbo hourlyDbo,
+            SQLiteDatabase sqLiteDatabase
+    ) {
         ContentValues contentValues = new ContentValues();
         String humidity = integerConverter.fromListToString(hourlyDbo.getHumidity());
         String temperature = doubleConverter.fromListToString(hourlyDbo.getTemperature());
@@ -47,14 +50,12 @@ public class WeatherDbManager {
         contentValues.put(KEY_TIME, time);
         contentValues.put(KEY_WEATHER_CODE, weatherCode);
         contentValues.put(KEY_WIND_SPEED, windSpeed);
-        SQLiteDatabase sqLiteDatabase = weatherDbHelper.getWritableDatabase();
         sqLiteDatabase.insertWithOnConflict(
                 WeatherDatabaseContract.HourlyEntry.TABLE_NAME,
                 null,
                 contentValues,
                 SQLiteDatabase.CONFLICT_REPLACE
         );
-        sqLiteDatabase.close();
     }
 
     private HourlyDbo getHourly() {
@@ -85,16 +86,26 @@ public class WeatherDbManager {
         return new HourlyDbo(humidity, temperature, time, weatherCode, windSpeed);
     }
 
-    private void deleteAllHourly() {
+    private void deleteAllHourly(
+            SQLiteDatabase sqLiteDatabase
+    ) {
         String sql = "DELETE FROM " + WeatherDatabaseContract.HourlyEntry.TABLE_NAME;
-        SQLiteDatabase sqLiteDatabase = weatherDbHelper.getWritableDatabase();
         sqLiteDatabase.execSQL(sql);
-        sqLiteDatabase.close();
     }
 
-    public void refreshWeather(HourlyDbo hourlyDbo) {
-        deleteAllHourly();
-        saveHourly(hourlyDbo);
+    public void refreshWeather(
+            HourlyDbo hourlyDbo
+    ) {
+        SQLiteDatabase sqLiteDatabase = weatherDbHelper.getWritableDatabase();
+        sqLiteDatabase.beginTransaction();
+        try {
+            deleteAllHourly(sqLiteDatabase);
+            saveHourly(hourlyDbo, sqLiteDatabase);
+            sqLiteDatabase.setTransactionSuccessful();
+        } finally {
+            sqLiteDatabase.endTransaction();
+            sqLiteDatabase.close();
+        }
         hourlyLiveData.postValue(getHourly());
     }
 }

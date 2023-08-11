@@ -14,10 +14,10 @@ import com.example.weatherapp.ui.adapters.adapter_items.HourlyInfoItem;
 import com.example.weatherapp.ui.adapters.adapter_items.MainInfoItem;
 import com.example.weatherapp.ui.adapters.adapter_items.TextItem;
 import com.example.weatherapp.ui.adapters.adapter_items.WeatherItem;
-import com.example.weatherapp.utils.Coordinates;
+import com.example.weatherapp.utils.coordinates.Coordinates;
 import com.example.weatherapp.utils.formatters.DateFormatter;
 import com.example.weatherapp.utils.ErrorMessageContainer;
-import com.example.weatherapp.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.utils.coordinates.LocationCoordinatesContainer;
 import com.example.weatherapp.utils.resourses.interfaces.ResourcesProvider;
 import com.example.weatherapp.utils.formatters.StringFormatter;
 

@@ -18,7 +18,7 @@ import com.example.weatherapp.databinding.FragmentWeatherBinding;
 import com.example.weatherapp.ui.adapters.WeatherAdapter;
 import com.example.weatherapp.ui.adapters.adapter_items.MainInfoItem;
 import com.example.weatherapp.ui.viewmodels.WeatherViewModel;
-import com.example.weatherapp.utils.LocationCoordinatesContainer;
+import com.example.weatherapp.utils.coordinates.LocationCoordinatesContainer;
 import com.example.weatherapp.ui.utils.ToastProvider;
 
 import java.util.Locale;

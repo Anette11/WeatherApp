@@ -1,4 +1,4 @@
-package com.example.weatherapp.utils;
+package com.example.weatherapp.utils.coordinates;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

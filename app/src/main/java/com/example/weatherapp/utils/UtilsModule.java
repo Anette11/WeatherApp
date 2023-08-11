@@ -1,5 +1,6 @@
 package com.example.weatherapp.utils;
 
+import com.example.weatherapp.utils.coordinates.LocationCoordinatesContainer;
 import com.example.weatherapp.utils.formatters.DateFormatter;
 import com.example.weatherapp.utils.formatters.StringFormatter;
 

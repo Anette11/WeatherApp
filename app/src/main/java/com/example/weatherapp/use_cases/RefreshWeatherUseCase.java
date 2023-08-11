@@ -1,7 +1,7 @@
 package com.example.weatherapp.use_cases;
 
-import com.example.weatherapp.database.LocalMappers;
-import com.example.weatherapp.api.RemoteMappers;
+import com.example.weatherapp.database.DatabaseModelsMappers;
+import com.example.weatherapp.api.ApiModelsMappers;
 import com.example.weatherapp.repositories.WeatherRepository;
 import com.example.weatherapp.utils.DateFormatter;
 
@@ -30,10 +30,10 @@ public class RefreshWeatherUseCase {
     ) {
         return repository
                 .getWeather(latitude, longitude, dateFormatter.getTimezone())
-                .flatMap(weatherDto -> Single.just(RemoteMappers.fromWeatherDtoToWeather(weatherDto)))
+                .flatMap(weatherDto -> Single.just(ApiModelsMappers.fromWeatherDtoToWeather(weatherDto)))
                 .flatMap(weather -> Single.just(weather.getHourly()))
                 .flatMapCompletable(hourly -> {
-                    repository.refreshWeather(LocalMappers.fromHourlyToHourlyDbo(hourly));
+                    repository.refreshWeather(DatabaseModelsMappers.fromHourlyToHourlyDbo(hourly));
                     return Completable.fromSingle(Single.just(hourly));
                 });
     }

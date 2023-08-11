@@ -3,7 +3,7 @@ package com.example.weatherapp.database;
 import com.example.weatherapp.database.models.HourlyDbo;
 import com.example.weatherapp.models.Hourly;
 
-public class LocalMappers {
+public class DatabaseModelsMappers {
 
     public static HourlyDbo fromHourlyToHourlyDbo(
             Hourly hourly

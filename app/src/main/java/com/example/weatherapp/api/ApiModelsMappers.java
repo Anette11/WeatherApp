@@ -5,7 +5,7 @@ import com.example.weatherapp.api.models.WeatherDto;
 import com.example.weatherapp.models.Hourly;
 import com.example.weatherapp.models.Weather;
 
-public class RemoteMappers {
+public class ApiModelsMappers {
 
     public static Weather fromWeatherDtoToWeather(
             WeatherDto weatherDto

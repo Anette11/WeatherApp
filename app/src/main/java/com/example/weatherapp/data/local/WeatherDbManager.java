@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.weatherapp.data.local.converters.DoubleConverter;
 import com.example.weatherapp.data.local.converters.IntegerConverter;
 import com.example.weatherapp.data.local.converters.StringConverter;
@@ -22,12 +25,17 @@ public class WeatherDbManager {
     private final IntegerConverter integerConverter = new IntegerConverter();
     private final DoubleConverter doubleConverter = new DoubleConverter();
     private final StringConverter stringConverter = new StringConverter();
+    private final MutableLiveData<HourlyDbo> hourlyLiveData = new MutableLiveData<>(null);
+
+    public LiveData<HourlyDbo> getHourlyLiveData() {
+        return hourlyLiveData;
+    }
 
     public WeatherDbManager(WeatherDbHelper weatherDbHelper) {
         this.weatherDbHelper = weatherDbHelper;
     }
 
-    public void saveHourly(HourlyDbo hourlyDbo) {
+    private void saveHourly(HourlyDbo hourlyDbo) {
         ContentValues contentValues = new ContentValues();
         String humidity = integerConverter.fromListToString(hourlyDbo.getHumidity());
         String temperature = doubleConverter.fromListToString(hourlyDbo.getTemperature());
@@ -40,11 +48,16 @@ public class WeatherDbManager {
         contentValues.put(KEY_WEATHER_CODE, weatherCode);
         contentValues.put(KEY_WIND_SPEED, windSpeed);
         SQLiteDatabase sqLiteDatabase = weatherDbHelper.getWritableDatabase();
-        sqLiteDatabase.insert(WeatherDbHelper.DATABASE_NAME, null, contentValues);
+        sqLiteDatabase.insertWithOnConflict(
+                WeatherDatabaseContract.HourlyEntry.TABLE_NAME,
+                null,
+                contentValues,
+                SQLiteDatabase.CONFLICT_REPLACE
+        );
         sqLiteDatabase.close();
     }
 
-    public HourlyDbo getHourly() {
+    private HourlyDbo getHourly() {
         int limit = 1;
         String sql = "SELECT * from " + WeatherDatabaseContract.HourlyEntry.TABLE_NAME + " LIMIT " + limit;
         SQLiteDatabase sqLiteDatabase = weatherDbHelper.getReadableDatabase();
@@ -62,20 +75,27 @@ public class WeatherDbManager {
         String timeStr = cursor.getString(columnIndexTime);
         String weatherCodeStr = cursor.getString(columnIndexWeatherCode);
         String windSpeedStr = cursor.getString(columnIndexWindSpeed);
+        cursor.close();
+        sqLiteDatabase.close();
         List<Integer> humidity = integerConverter.fromStringToList(humidityStr);
         List<Double> temperature = doubleConverter.fromStringToList(temperatureStr);
         List<String> time = stringConverter.fromStringToList(timeStr);
         List<Integer> weatherCode = integerConverter.fromStringToList(weatherCodeStr);
         List<Double> windSpeed = doubleConverter.fromStringToList(windSpeedStr);
-        cursor.close();
-        sqLiteDatabase.close();
         return new HourlyDbo(humidity, temperature, time, weatherCode, windSpeed);
     }
 
-    public void deleteAllHourly() {
+    private void deleteAllHourly() {
         String sql = "DELETE FROM " + WeatherDatabaseContract.HourlyEntry.TABLE_NAME;
         SQLiteDatabase sqLiteDatabase = weatherDbHelper.getWritableDatabase();
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.close();
+    }
+
+    public void refreshWeather(HourlyDbo hourlyDbo) {
+        deleteAllHourly();
+        saveHourly(hourlyDbo);
+        HourlyDbo hourlyDboFromDb = getHourly();
+        hourlyLiveData.postValue(hourlyDboFromDb);
     }
 }

@@ -37,12 +37,11 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
     @Override
     public void refreshWeather(HourlyDbo hourlyDbo) {
-        weatherDbManager.deleteAllHourly();
-        weatherDbManager.saveHourly(hourlyDbo);
+        weatherDbManager.refreshWeather(hourlyDbo);
     }
 
     @Override
     public LiveData<HourlyDbo> getWeather() {
-        return weatherDbManager.getHourly();
+        return weatherDbManager.getHourlyLiveData();
     }
 }

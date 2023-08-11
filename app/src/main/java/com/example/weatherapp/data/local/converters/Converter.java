@@ -1,7 +1,5 @@
 package com.example.weatherapp.data.local.converters;
 
-import androidx.room.TypeConverter;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,12 +16,10 @@ public abstract class Converter<T> {
         this.gson = new GsonBuilder().create();
     }
 
-    @TypeConverter
     public List<T> fromStringToList(String value) {
         return new Gson().fromJson(value, type);
     }
 
-    @TypeConverter
     public String fromListToString(List<T> t) {
         return gson.toJson(t);
     }

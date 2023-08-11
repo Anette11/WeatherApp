@@ -1,5 +1,7 @@
 package com.example.weatherapp.repositories;
 
+import com.example.weatherapp.repositories.interfaces.WeatherRepository;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.hilt.InstallIn;

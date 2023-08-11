@@ -1,4 +1,4 @@
-package com.example.weatherapp.repositories;
+package com.example.weatherapp.repositories.interfaces;
 
 import androidx.lifecycle.LiveData;
 

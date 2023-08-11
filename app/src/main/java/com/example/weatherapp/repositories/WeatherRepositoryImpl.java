@@ -6,6 +6,7 @@ import com.example.weatherapp.database.WeatherDbManager;
 import com.example.weatherapp.database.models.HourlyDbo;
 import com.example.weatherapp.api.WeatherApi;
 import com.example.weatherapp.api.models.WeatherDto;
+import com.example.weatherapp.repositories.interfaces.WeatherRepository;
 
 import javax.inject.Inject;
 

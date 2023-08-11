@@ -5,7 +5,7 @@ import androidx.lifecycle.Transformations;
 
 import com.example.weatherapp.database.DatabaseModelsMappers;
 import com.example.weatherapp.models.Hourly;
-import com.example.weatherapp.repositories.WeatherRepository;
+import com.example.weatherapp.repositories.interfaces.WeatherRepository;
 
 public class GetWeatherFromDbUseCase {
 

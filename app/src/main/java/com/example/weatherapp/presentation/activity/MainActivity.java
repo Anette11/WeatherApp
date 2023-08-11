@@ -16,6 +16,7 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -39,6 +40,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE_LOCATION_PERMISSIONS = 123;
+    private AlertDialog alertDialogContinue;
+    private AlertDialog alertDialogSettings;
 
     @Inject
     ToastProvider toastProvider;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (!areLocationPermissionsGranted()) showDialog();
         if (areLocationPermissionsGranted() &&
                 locationCoordinatesContainer.getCoordinates().getValue() == null
         ) {
@@ -72,27 +76,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog() {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) return;
+        if (alertDialogSettings != null && alertDialogSettings.isShowing()) return;
+        if (alertDialogContinue != null && alertDialogContinue.isShowing()) return;
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            new AlertDialogCreator(
+            alertDialogSettings = new AlertDialogCreator(
                     this,
                     getString(R.string.dialog_location_permissions_title),
                     getString(R.string.dialog_location_permissions_message_open_settings),
                     getString(R.string.dialog_location_permissions_positive_button_text_open_settings),
                     getString(R.string.dialog_location_permissions_negative_button_text),
+                    false,
                     this::openAppSettingsIntent,
                     this::finish
-            ).createAlertDialog().show();
+            ).createAlertDialog();
+            alertDialogSettings.show();
         } else {
-            new AlertDialogCreator(
+            alertDialogContinue = new AlertDialogCreator(
                     this,
                     getString(R.string.dialog_location_permissions_title),
                     getString(R.string.dialog_location_permissions_message_continue),
                     getString(R.string.dialog_location_permissions_positive_button_text_continue),
                     getString(R.string.dialog_location_permissions_negative_button_text),
+                    false,
                     this::requestLocationPermissions,
                     this::finish
-            ).createAlertDialog().show();
+            ).createAlertDialog();
+            alertDialogContinue.show();
         }
     }
 

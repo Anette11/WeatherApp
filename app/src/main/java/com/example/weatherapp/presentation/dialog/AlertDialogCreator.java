@@ -11,6 +11,7 @@ public class AlertDialogCreator {
     private final String message;
     private final String positiveButton;
     private final String negativeButton;
+    private final boolean isCancelable;
     private final OnButtonClick onPositiveButtonClick;
     private final OnButtonClick onNegativeButtonClick;
 
@@ -20,6 +21,7 @@ public class AlertDialogCreator {
             String message,
             String positiveButton,
             String negativeButton,
+            boolean isCancelable,
             OnButtonClick onPositiveButtonClick,
             OnButtonClick onNegativeButtonClick
     ) {
@@ -28,17 +30,28 @@ public class AlertDialogCreator {
         this.message = message;
         this.positiveButton = positiveButton;
         this.negativeButton = negativeButton;
+        this.isCancelable = isCancelable;
         this.onPositiveButtonClick = onPositiveButtonClick;
         this.onNegativeButtonClick = onNegativeButtonClick;
     }
 
     public AlertDialog createAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(positiveButton, (dialog, which) -> onPositiveButtonClick.onClick());
-        builder.setNegativeButton(negativeButton, (dialog, which) -> onNegativeButtonClick.onClick());
-        builder.setCancelable(false);
-        return builder.create();
+        return new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(
+                        positiveButton,
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            onPositiveButtonClick.onClick();
+                        })
+                .setNegativeButton(
+                        negativeButton,
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            onNegativeButtonClick.onClick();
+                        })
+                .setCancelable(isCancelable)
+                .create();
     }
 }

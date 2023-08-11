@@ -1,4 +1,4 @@
-package com.example.weatherapp.utils;
+package com.example.weatherapp.utils.resourses;
 
 import android.content.Context;
 

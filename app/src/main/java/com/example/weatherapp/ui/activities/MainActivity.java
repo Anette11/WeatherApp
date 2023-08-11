@@ -25,7 +25,7 @@ import com.example.weatherapp.databinding.ActivityMainBinding;
 import com.example.weatherapp.ui.alert_dialog.AlertDialogCreator;
 import com.example.weatherapp.utils.Coordinates;
 import com.example.weatherapp.utils.LocationCoordinatesContainer;
-import com.example.weatherapp.utils.ToastProvider;
+import com.example.weatherapp.ui.utils.ToastProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;

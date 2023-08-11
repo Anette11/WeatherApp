@@ -1,5 +1,8 @@
 package com.example.weatherapp.utils;
 
+import com.example.weatherapp.utils.formatters.DateFormatter;
+import com.example.weatherapp.utils.formatters.StringFormatter;
+
 import javax.inject.Singleton;
 
 import dagger.Module;

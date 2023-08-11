@@ -1,7 +1,7 @@
 package com.example.weatherapp.use_cases;
 
 import com.example.weatherapp.repositories.WeatherRepository;
-import com.example.weatherapp.utils.DateFormatter;
+import com.example.weatherapp.utils.formatters.DateFormatter;
 
 import dagger.Module;
 import dagger.Provides;

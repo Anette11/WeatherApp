@@ -6,6 +6,8 @@ import com.example.weatherapp.ui.adapters.adapter_delegates.HourlyInfoEveryDayAd
 import com.example.weatherapp.ui.adapters.adapter_delegates.MainInfoAdapterDelegate;
 import com.example.weatherapp.ui.adapters.adapter_delegates.TextAdapterDelegate;
 import com.example.weatherapp.ui.adapters.adapter_items.WeatherItem;
+import com.example.weatherapp.ui.adapters.diff_util.WeatherDiffUtilCallBack;
+import com.example.weatherapp.ui.adapters.listeners.OnItemClickListener;
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter;
 
 import java.util.ArrayList;

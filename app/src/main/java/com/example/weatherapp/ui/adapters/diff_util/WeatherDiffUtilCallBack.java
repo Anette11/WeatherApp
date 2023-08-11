@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.adapters;
+package com.example.weatherapp.ui.adapters.diff_util;
 
 import androidx.recyclerview.widget.DiffUtil;
 

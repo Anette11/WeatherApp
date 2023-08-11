@@ -15,11 +15,11 @@ import com.example.weatherapp.ui.adapters.adapter_items.MainInfoItem;
 import com.example.weatherapp.ui.adapters.adapter_items.TextItem;
 import com.example.weatherapp.ui.adapters.adapter_items.WeatherItem;
 import com.example.weatherapp.utils.Coordinates;
-import com.example.weatherapp.utils.DateFormatter;
+import com.example.weatherapp.utils.formatters.DateFormatter;
 import com.example.weatherapp.utils.ErrorMessageContainer;
 import com.example.weatherapp.utils.LocationCoordinatesContainer;
-import com.example.weatherapp.utils.ResourcesProvider;
-import com.example.weatherapp.utils.StringFormatter;
+import com.example.weatherapp.utils.resourses.ResourcesProvider;
+import com.example.weatherapp.utils.formatters.StringFormatter;
 
 import java.io.IOException;
 import java.util.ArrayList;

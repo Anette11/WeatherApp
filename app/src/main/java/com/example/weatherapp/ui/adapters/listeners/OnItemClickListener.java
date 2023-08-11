@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.adapters;
+package com.example.weatherapp.ui.adapters.listeners;
 
 import com.example.weatherapp.ui.adapters.adapter_items.WeatherItem;
 

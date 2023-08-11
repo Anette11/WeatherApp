@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.databinding.WeatherMainInfoBinding;
-import com.example.weatherapp.ui.adapters.OnItemClickListener;
+import com.example.weatherapp.ui.adapters.listeners.OnItemClickListener;
 import com.example.weatherapp.ui.adapters.adapter_items.MainInfoItem;
 import com.example.weatherapp.ui.adapters.adapter_items.WeatherItem;
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate;
